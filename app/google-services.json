@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "400990240265",
+    "project_id": "chuka-e-mall",
+    "storage_bucket": "chuka-e-mall.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400990240265:android:8999561a4bb1e0745f82d8",
+        "android_client_info": {
+          "package_name": "org.trustfuse.mpesa_stktrial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "400990240265-7m8kr9m5jj1c860ckphk1dmc7ghe4568.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.trustfuse.mpesa_stktrial",
+            "certificate_hash": "9395ac1ac10d40c784795cabb3c74253dfb08531"
+          }
+        },
+        {
+          "client_id": "400990240265-n8fn9juqinf51hao9n1p8nhgbq908ip4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2u1tRfMUVC8s7v2AZr0q5xyJi2CMXKBQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "400990240265-n8fn9juqinf51hao9n1p8nhgbq908ip4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

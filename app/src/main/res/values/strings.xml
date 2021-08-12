@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Mpesa-Stk Trial</string>
+    <string name="home">Home</string>
+    <string name="categories">Categories</string>
+    <string name="cart">Cart</string>
+    <string name="account">Account</string>
+
+    <array name="acc_type">
+        <item>Consumer/ Good owner</item>
+        <item>Consumer</item>
+        <item>Good owner</item>
+    </array>
+</resources>

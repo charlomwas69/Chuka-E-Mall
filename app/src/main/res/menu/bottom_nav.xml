@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/Home_nav"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/home"/>
+    <item
+        android:id="@+id/Categories_nav"
+        android:icon="@drawable/ic_baseline_category_24"
+        android:title="@string/categories"/>
+    <item
+        android:id="@+id/Cart_nav"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="@string/cart"/>
+    <item
+        android:id="@+id/Account_nav"
+        android:icon="@drawable/ic_baseline_account_box_24"
+        android:title="@string/account" />
+
+</menu>
