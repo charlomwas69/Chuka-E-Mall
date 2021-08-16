@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -24,6 +25,7 @@ public class Goodowner_sign_in extends AppCompatActivity {
     ProgressBar progressBarr;
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
+    TextView number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,9 @@ public class Goodowner_sign_in extends AppCompatActivity {
         progressBarr = findViewById(R.id.goodowner_progressBar);
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
+        number = findViewById(R.id.phone_number);
+
+        number.setText(Good_owner_login.phoneNum);
 
         sign_In.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +56,7 @@ public class Goodowner_sign_in extends AppCompatActivity {
 
         String g_name = name.getText().toString().trim();
         String g_location = location.getText().toString().trim();
+        String p_number = number.getText().toString().trim();
 
         if (TextUtils.isEmpty(g_name)){
             name.setError("Name cant be empty");
@@ -64,6 +70,7 @@ public class Goodowner_sign_in extends AppCompatActivity {
         Map<String , Object> dataa = new HashMap<>();
         dataa.put("Consumer name",g_name);
         dataa.put("Good owner location",g_location);
+        dataa.put("Good owner phone number",p_number);
         firebaseFirestore.collection("Good owner").document(firebaseAuth.getCurrentUser().getUid())
                 .set(dataa, SetOptions.merge());
     }

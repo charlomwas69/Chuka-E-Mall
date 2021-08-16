@@ -285,7 +285,7 @@
                     android:background="@color/teal_700" />
 
                 <Button
-                    android:id="@+id/logoutBtn"
+                    android:id="@+id/edit_profile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Update profile"

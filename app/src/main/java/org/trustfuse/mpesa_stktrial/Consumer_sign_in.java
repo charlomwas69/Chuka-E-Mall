@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -22,11 +23,13 @@ import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Consumer_sign_in extends AppCompatActivity {
     EditText name,username,location,email;
     Button login;
     ProgressBar progressBar;
+    TextView p_no;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
 //    String Userid;
@@ -44,7 +47,11 @@ public class Consumer_sign_in extends AppCompatActivity {
         progressBar = findViewById(R.id.cons_progressBar);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        p_no = findViewById(R.id.p_no);
 //        Userid = FirebaseAuth.getInstance().getUid();
+        p_no.setText(Login.phoneNum);
+
+
 
         login.setOnClickListener(new OnClickListener() {
             @Override
@@ -54,12 +61,16 @@ public class Consumer_sign_in extends AppCompatActivity {
 //                Intent intent = new Intent(getApplicationContext(),Login.class);
 //                intent.putExtra("number",phone_num);
 //                startActivity(intent);
+//                Intent intent = getIntent();
+//                String str = intent.getStringExtra("phoneNum");
+
             }
         });
     }
 
     private void create_user() {
 
+        String phone = p_no.getText().toString().trim();
         String nam = name.getText().toString().trim();
         String usernam = username.getText().toString().trim();
         String email_st = email.getText().toString().trim();
@@ -90,31 +101,14 @@ public class Consumer_sign_in extends AppCompatActivity {
             dataa.put("Consumer username",usernam);
             dataa.put("Consumer email",email_st);
             dataa.put("Consumer location",locat_st);
-            firebaseFirestore.collection("Drivers").document(firebaseAuth.getCurrentUser().getUid())
+            dataa.put("Phone Number",phone);
+            firebaseFirestore.collection("Consumer").document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
                     .set(dataa, SetOptions.merge());
-            //end of add date
-//            DocumentReference documentReference = firebaseFirestore.collection("Consumer").document();
-//            Map<String, Object> consumer = new HashMap<>();
-//            consumer.put("name",nam);
-//            consumer.put("username",usernam);
-//            consumer.put("email",email_st);
-//            consumer.put("location",locat_st);
-//
-//            documentReference.set(consumer).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                @Override
-//                public void onSuccess(Void aVoid) {
-//
-//                    Intent intent = new Intent(getApplicationContext(),Login.class);
-//                    startActivity(intent);
-//                    progressBar.setVisibility(View.GONE);
-//
-//                }
-//            }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(getApplicationContext(),"Registration failed" + e.toString(),Toast.LENGTH_LONG).show();
-//                }
-//            });
+
+            Intent intent = new Intent(getApplicationContext(),Main_Menu.class);
+                    startActivity(intent);
+                    progressBar.setVisibility(View.GONE);
+            //end of add data
         }
 
     }

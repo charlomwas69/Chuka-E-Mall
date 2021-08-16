@@ -45,9 +45,9 @@ public class Login extends AppCompatActivity {
     String verificationId;
     PhoneAuthProvider.ForceResendingToken token;
     Boolean verificationInProgress = false;
-    String Userid;
+//    public static String cary_number;
     String p_number;
-    String phoneNum;
+    public static String phoneNum;
 
 
     @Override
@@ -84,7 +84,10 @@ public class Login extends AppCompatActivity {
                 if(!otp.getText().toString().isEmpty() && otp.getText().toString().length() > 5) {
                     if(!verificationInProgress){
                         otp.setEnabled(false);
-                        phoneNum = otp.getText().toString();
+                        phoneNum = otp.getText().toString().trim();
+//                        Intent intent = new Intent(getApplicationContext(),Consumer_sign_in.class);
+//                        intent.putExtra("phoneNum", phoneNum);
+//                        startActivity(intent);
                         p_number = otp.getText().toString();
 
                         progressbar.setVisibility(View.VISIBLE);
@@ -202,31 +205,34 @@ public class Login extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()){
-                    Toast.makeText(getApplicationContext(),"SUCCCCCCCCCCESSSSSS",Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(),"SUCCCCCCCCCCESSSSSS",Toast.LENGTH_LONG).show();
                     startActivity(new Intent(getApplicationContext(),Main_Menu.class));
                     finish();
 
                 }else {
-                    DocumentReference documentReference = fstore.collection("Consumer").document();
-                    Map<String, Object> consumer = new HashMap<>();
-//                    Toast.makeText(getApplicationContext(),"SUCCESFULLY ADDED",Toast.LENGTH_LONG);
-                    consumer.put("Phone number",p_number);
-
-                    documentReference.set(consumer).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-
-                            Intent intent1 = new Intent(getApplicationContext(),Consumer_sign_in.class);
+//                    DocumentReference documentReference = fstore.collection("Consumer").document();
+//                    Map<String, Object> consumer = new HashMap<>();
+////                    Toast.makeText(getApplicationContext(),"SUCCESFULLY ADDED",Toast.LENGTH_LONG);
+//                    consumer.put("Phone number",p_number);
+//
+//                    documentReference.set(consumer).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//
+//                            Intent intent1 = new Intent(getApplicationContext(),Consumer_sign_in.class);
+//                            startActivity(intent1);
+//                            progressbar.setVisibility(View.GONE);
+//
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(getApplicationContext(),"Registration failed" + e.toString(),Toast.LENGTH_LONG).show();
+//                        }
+//                    });
+                    Intent intent1 = new Intent(getApplicationContext(),Consumer_sign_in.class);
                             startActivity(intent1);
                             progressbar.setVisibility(View.GONE);
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(),"Registration failed" + e.toString(),Toast.LENGTH_LONG).show();
-                        }
-                    });
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {

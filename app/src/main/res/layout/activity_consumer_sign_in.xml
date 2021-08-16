@@ -141,6 +141,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo_b" />
 
+        <TextView
+            android:id="@+id/p_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView7"
+            app:layout_constraintTop_toTopOf="@+id/textView7" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -46,7 +46,7 @@ public class Good_owner_login extends AppCompatActivity {
     Boolean verificationInProgress = false;
     String Userid;
     String p_number;
-    String phoneNum;
+    public static String phoneNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class Good_owner_login extends AppCompatActivity {
                 if(!otp.getText().toString().isEmpty() && otp.getText().toString().length() > 5) {
                     if(!verificationInProgress){
                         otp.setEnabled(false);
-                        phoneNum = otp.getText().toString();
+                        phoneNum = otp.getText().toString().trim();
                         p_number = otp.getText().toString();
 
                         progressbar.setVisibility(View.VISIBLE);
@@ -202,26 +202,29 @@ public class Good_owner_login extends AppCompatActivity {
                     finish();
 
                 }else {
-                    DocumentReference documentReference = fstore.collection("Consumer").document();
-                    Map<String, Object> consumer = new HashMap<>();
-//                    Toast.makeText(getApplicationContext(),"SUCCESFULLY ADDED",Toast.LENGTH_LONG);
-                    consumer.put("Phone number",p_number);
-
-                    documentReference.set(consumer).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-
-                            Intent intent1 = new Intent(getApplicationContext(),Consumer_sign_in.class);
+//                    DocumentReference documentReference = fstore.collection("Consumer").document();
+//                    Map<String, Object> consumer = new HashMap<>();
+////                    Toast.makeText(getApplicationContext(),"SUCCESFULLY ADDED",Toast.LENGTH_LONG);
+//                    consumer.put("Phone number",p_number);
+//
+//                    documentReference.set(consumer).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//
+//                            Intent intent1 = new Intent(getApplicationContext(),Goodowner_sign_in.class);
+//                            startActivity(intent1);
+//                            progressbar.setVisibility(View.GONE);
+//
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(getApplicationContext(),"Registration failed" + e.toString(),Toast.LENGTH_LONG).show();
+//                        }
+//                    });
+                    Intent intent1 = new Intent(getApplicationContext(),Goodowner_sign_in.class);
                             startActivity(intent1);
                             progressbar.setVisibility(View.GONE);
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(),"Registration failed" + e.toString(),Toast.LENGTH_LONG).show();
-                        }
-                    });
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
