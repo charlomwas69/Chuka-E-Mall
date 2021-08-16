@@ -37,8 +37,8 @@ public class First_Page extends AppCompatActivity {
         good_owner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(),Goodowner_sign_in.class);
                 Intent intent = new Intent(getApplicationContext(),Main_Menu.class);
+//                Intent intent = new Intent(getApplicationContext(),Good_owner_login.class);
                 startActivity(intent);
             }
         });

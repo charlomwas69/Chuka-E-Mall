@@ -34,8 +34,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class Login extends AppCompatActivity {
-
+public class Good_owner_login extends AppCompatActivity {
     Button login;
     EditText otp;
     TextView resend_otp,info;
@@ -49,23 +48,19 @@ public class Login extends AppCompatActivity {
     String p_number;
     String phoneNum;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_good_owner_login);
 
-        login = findViewById(R.id.OTP_button);
-        info = findViewById(R.id.inform);
-        otp = findViewById(R.id.OTP);
-        resend_otp = findViewById(R.id.resend_otp);
-        progressbar = findViewById(R.id.progressbar);
+        login = findViewById(R.id.OTP_button_good_owner);
+        info = findViewById(R.id.inform_good_owner);
+        otp = findViewById(R.id.OTP_good_owner);
+        resend_otp = findViewById(R.id.resend_otp_good_owner);
+        progressbar = findViewById(R.id.progressbar_good_owner);
         firebaseAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
 
-//        Userid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-
-        //resend option
         String resend = "OTP not received? Send Again.";
         SpannableString spannableString = new SpannableString(resend);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -136,7 +131,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onCodeAutoRetrievalTimeOut(@NonNull String s) {
                 super.onCodeAutoRetrievalTimeOut(s);
-                Toast.makeText(Login.this, "OTP has expired *CHECK YOUR NETWORK PLEASE*", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Good_owner_login.this, "OTP has expired *CHECK YOUR NETWORK PLEASE*", Toast.LENGTH_SHORT).show();
 //                resend.setVisibility(View.VISIBLE);
 //                state.setVisibility(View.GONE);
                 progressbar.setVisibility(View.GONE);
@@ -150,7 +145,7 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
-                Toast.makeText(Login.this, "Phone number not verified"+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Good_owner_login.this, "Phone number not verified"+ e.getMessage(), Toast.LENGTH_SHORT).show();
                 progressbar.setVisibility(View.GONE);
                 otp.setEnabled(true);
 //                state.setVisibility(View.INVISIBLE);
@@ -165,7 +160,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(Login.this, "Authentication is successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Good_owner_login.this, "Authentication is successful", Toast.LENGTH_SHORT).show();
                     otp.setText("");
                     //// check if user exists in the db
                     checkUserProfile();
@@ -173,7 +168,7 @@ public class Login extends AppCompatActivity {
                 }else {
                     progressbar.setVisibility(View.GONE);
 //                    state.setVisibility(View.GONE);
-                    Toast.makeText(Login.this, "Phone Number Not Verified *Invalid OTP*", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Good_owner_login.this, "Phone Number Not Verified *Invalid OTP*", Toast.LENGTH_SHORT).show();
                     otp.setVisibility(View.VISIBLE);
                     login.setText("REENTER OTP");
                     login.setEnabled(true);
@@ -197,7 +192,7 @@ public class Login extends AppCompatActivity {
     //////////////////////// CHECKING IF USER HAS ALREADY RECEIVED THE OTP,,IF SO THE USER WILL GO DIRECTLY TO MAIN PAGE
     private void checkUserProfile() {
 
-        DocumentReference docref = fstore.collection("Consumer").document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
+        DocumentReference docref = fstore.collection("Good Owner").document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
         docref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -232,13 +227,11 @@ public class Login extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Login.this, "Profile does not exist" + e.toString() , Toast.LENGTH_LONG).show();
+                Toast.makeText(Good_owner_login.this, "Profile does not exist" + e.toString() , Toast.LENGTH_LONG).show();
 //                state.setVisibility(View.GONE);
                 progressbar.setVisibility(View.GONE);
 
             }
         });
     }
-
-/////last tag
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,9 +54,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     ///constructor
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        EditText category;
-        EditText name;
-        EditText price;
+        TextView category;
+        TextView name;
+        TextView price;
         ImageView imageView;
 
         public ViewHolder(@NonNull View itemView) {

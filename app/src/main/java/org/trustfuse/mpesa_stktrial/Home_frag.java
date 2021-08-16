@@ -14,6 +14,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +29,9 @@ public class Home_frag extends Fragment {
     List<String> price;
     List<Integer> images;
     Adapter adapter;
+    FirebaseAuth firebaseAuth;
+    FirebaseFirestore firebaseFirestore;
+    FirebaseStorage firebaseStorage;
 
 
     @Nullable
@@ -32,6 +39,10 @@ public class Home_frag extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return inflater.inflate(R.layout.home_fragment,container,false);
         View view = inflater.inflate(R.layout.home_fragment,container,false);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
 
         //////test data
         category = new ArrayList<>();

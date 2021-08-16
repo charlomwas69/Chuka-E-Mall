@@ -14,6 +14,6 @@ public class Account_frag extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.single_item_template,container,false);
+        return inflater.inflate(R.layout.account_fragment,container,false);
     }
 }
