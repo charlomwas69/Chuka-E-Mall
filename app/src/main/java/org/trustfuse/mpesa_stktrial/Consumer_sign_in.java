@@ -1,9 +1,10 @@
 package org.trustfuse.mpesa_stktrial;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,10 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -56,6 +54,11 @@ public class Consumer_sign_in extends AppCompatActivity {
         login.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!isuseronline()){
+                    Toast.makeText(getApplicationContext(),"Check your internet connection",Toast.LENGTH_LONG).show();
+                }
+
                 create_user();
 //                String phone_num = phone_number.getText().toString().trim();
 //                Intent intent = new Intent(getApplicationContext(),Login.class);
@@ -66,6 +69,12 @@ public class Consumer_sign_in extends AppCompatActivity {
 
             }
         });
+    }
+
+    private boolean isuseronline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
     private void create_user() {

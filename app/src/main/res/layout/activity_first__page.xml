@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_walk"
     tools:context=".First_Page">
 <!--    -->
 <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
@@ -24,7 +23,7 @@
         <ImageView
             android:layout_width="300dp"
             android:layout_height="120dp"
-            android:src="@drawable/splash_bg" />
+            android:src="@drawable/logo_b" />
 
         <TextView
             android:layout_width="match_parent"
@@ -37,7 +36,7 @@
             android:gravity="center"
             android:padding="5dp"
             android:text="CHUKA E-MALL"
-            android:textColor="#363F71"
+            android:textColor="#34449A"
             android:textSize="28sp"
             android:textStyle="bold" />
 
@@ -51,7 +50,7 @@
             android:gravity="center"
             android:padding="3dp"
             android:text="Select Your Role"
-            android:textColor="#183643"
+            android:textColor="#9F4528"
             android:textSize="18sp" />
 
         <Button

@@ -2,6 +2,9 @@ package org.trustfuse.mpesa_stktrial;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -46,10 +50,20 @@ public class Goodowner_sign_in extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+                if (!isuseronline()){
+                    Toast.makeText(getApplicationContext(),"Check your internet connection",Toast.LENGTH_LONG).show();
+                }
                 CreateGoodOwner();
 
             }
         });
+    }
+
+    private boolean isuseronline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
     private void CreateGoodOwner() {
@@ -73,5 +87,7 @@ public class Goodowner_sign_in extends AppCompatActivity {
         dataa.put("Good owner phone number",p_number);
         firebaseFirestore.collection("Good owner").document(firebaseAuth.getCurrentUser().getUid())
                 .set(dataa, SetOptions.merge());
+        Intent intent = new Intent(getApplicationContext(),Good_owner_post.class);
+        startActivity(intent);
     }
 }

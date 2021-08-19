@@ -48,16 +48,19 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.2.0'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.cazaea:sweet-alert-dialog:1.0.0'
 
     implementation 'io.supercharge:shimmerlayout:2.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.airbnb.android:lottie:2.7.0'
+    implementation 'com.github.mayuce:LottieAlertDialog:1.1'
 
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
 
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
 
     //I noticed this issue and add this
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

@@ -21,7 +21,7 @@
 
     <EditText
         android:id="@+id/OTP_good_owner"
-        android:layout_width="340dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:autofillHints=""
@@ -31,13 +31,12 @@
         android:hint="+2547..."
         android:inputType="textPersonName|numberPassword"
         android:padding="13dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
         android:textColor="#F8131313"
         android:textColorHint="#F8131313"
+        android:layout_marginHorizontal="20dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inform_good_owner" />
 
@@ -70,11 +69,12 @@
 
     <Button
         android:id="@+id/OTP_button_good_owner"
-        android:layout_width="340dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="@drawable/edit_text_design"
         android:text="Request OTP"
+        android:layout_marginHorizontal="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/OTP_good_owner"

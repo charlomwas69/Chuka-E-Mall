@@ -198,31 +198,12 @@ public class Good_owner_login extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()){
                     Toast.makeText(getApplicationContext(),"SUCCCCCCCCCCESSSSSS",Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(getApplicationContext(),Main_Menu.class));
+                    startActivity(new Intent(getApplicationContext(),Good_owner_post.class));
                     finish();
 
                 }else {
-//                    DocumentReference documentReference = fstore.collection("Consumer").document();
-//                    Map<String, Object> consumer = new HashMap<>();
-////                    Toast.makeText(getApplicationContext(),"SUCCESFULLY ADDED",Toast.LENGTH_LONG);
-//                    consumer.put("Phone number",p_number);
-//
-//                    documentReference.set(consumer).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//
-//                            Intent intent1 = new Intent(getApplicationContext(),Goodowner_sign_in.class);
-//                            startActivity(intent1);
-//                            progressbar.setVisibility(View.GONE);
-//
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(getApplicationContext(),"Registration failed" + e.toString(),Toast.LENGTH_LONG).show();
-//                        }
-//                    });
                     Intent intent1 = new Intent(getApplicationContext(),Goodowner_sign_in.class);
+//                    Intent intent1 = new Intent(getApplicationContext(),Good_owner_post.class);
                             startActivity(intent1);
                             progressbar.setVisibility(View.GONE);
                 }
