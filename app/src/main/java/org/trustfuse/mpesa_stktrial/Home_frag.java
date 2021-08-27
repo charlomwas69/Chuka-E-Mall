@@ -1,90 +1,104 @@
 package org.trustfuse.mpesa_stktrial;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
-import java.util.List;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Home_frag extends Fragment {
 
     RecyclerView recyclerView;
-    List<String> category;
-    List<String> name;
-    List<String> price;
-    List<Integer> images;
-    Adapter adapter;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
-    FirebaseStorage firebaseStorage;
+    StorageReference storageReference;
+    FirestoreRecyclerAdapter adapter;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return inflater.inflate(R.layout.home_fragment,container,false);
-        View view = inflater.inflate(R.layout.home_fragment,container,false);
+        final View[] view = {inflater.inflate(R.layout.home_fragment, container, false)};
 
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseStorage = FirebaseStorage.getInstance();
-
-        //////test data
-        category = new ArrayList<>();
-        name = new ArrayList<>();
-        price = new ArrayList<>();
-        images = new ArrayList<>();
-
-        category.add("fist item");
-        category.add("second item");
-        category.add("third item");
-        category.add("fourth item");
-
-        name.add("fist name");
-        name.add("second name");
-        name.add("third name");
-        name.add("fourth name");
-
-        price.add("price 1");
-        price.add("price 2");
-        price.add("price 3");
-        price.add("price 4");
-
-        images.add(R.drawable.mpesa_logo);
-        images.add(R.drawable.big);
-        images.add(R.drawable.add_image);
-        images.add(R.drawable.logo);
-
-
-        adapter = new Adapter(getContext(),images,category,name,price);
-
-        ////end of test data
-
-        recyclerView = view.findViewById(R.id.recyler);
+        storageReference = FirebaseStorage.getInstance().getReference();
+        recyclerView = view[0].findViewById(R.id.recyler);
         recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(),2,GridLayoutManager.VERTICAL,false);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        Query query = firebaseFirestore.collection("Goods");
+
+        FirestoreRecyclerOptions<Goods_Adapter> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<Goods_Adapter>()
+                .setQuery(query,Goods_Adapter.class)
+                .build();
+
+        adapter = new FirestoreRecyclerAdapter<Goods_Adapter, Goods_ViewHolder>(firestoreRecyclerOptions) {
+
+            @NonNull
+            @Override
+            public Goods_ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                view[0] = LayoutInflater.from(getContext()).inflate(R.layout.single_item_template,parent,false);
+                return new Goods_ViewHolder(view[0]);
+            }
+
+            @Override
+            protected void onBindViewHolder(Goods_ViewHolder goods_viewHolder, int i, Goods_Adapter goods_adapter) {
+                goods_viewHolder.i_name.setText(goods_adapter.getName());
+                goods_viewHolder.i_category.setText(goods_adapter.getCategory());
+                goods_viewHolder.i_price.setText(goods_adapter.getPrice() + "");
+            }
+        };
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
-        ///adapter
+
+//        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+//        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
 
 
-        return view;
+        return view[0];
+    }
+
+    private static class Goods_ViewHolder extends RecyclerView.ViewHolder {
+        TextView i_name,i_category,i_price;
+        CircleImageView image;
+
+        public Goods_ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            i_name = itemView.findViewById(R.id.item_name);
+            i_category = itemView.findViewById(R.id.item_category);
+            i_price = itemView.findViewById(R.id.price);
+            image = itemView.findViewById(R.id.item_image);
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
     }
 }

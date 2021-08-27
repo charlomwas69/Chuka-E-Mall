@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -55,10 +56,12 @@ public class Good_owner_post extends AppCompatActivity {
     FirebaseFirestore firestore;
     Button post;
     CircleImageView circleImageView;
+    Uri contentUri;
+    CardView cardView;
+
     private static final int CAM_PERM = 100 ;
     private static final int CAM_REQ_CODE = 101;
     public static final int GALLERY_RE_CODE = 103;
-    public static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 1;
     String currentPhotoPath;
 
     @Override
@@ -73,12 +76,15 @@ public class Good_owner_post extends AppCompatActivity {
         post = findViewById(R.id.post_item);
         storageReference = FirebaseStorage.getInstance().getReference();
         firestore = FirebaseFirestore.getInstance();
+        cardView = findViewById(R.id.card_view2);
 
+
+        cardView.setVisibility(View.GONE);
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(gallery, GALLERY_RE_CODE);
             }
         });
 
@@ -125,22 +131,21 @@ public class Good_owner_post extends AppCompatActivity {
             documentReference.set(goods).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(getApplicationContext(),"Good posted",Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(),"Good posted",Toast.LENGTH_LONG).show();
 //                    Snackbar.make(getCurrentFocus(),"Good succesfully Posted Wait to upload Image",3500).show();
 //                    askCameraperm();
                     item_name.setText("");
                     item_description.setText("");
                     item_price.setText("");
                     item_category.setText("");
-                    Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(gallery, GALLERY_RE_CODE);
 
-                    LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(Good_owner_post.this, DialogTypes.TYPE_SUCCESS)
-                            .setTitle("SUCCESS")
-                            .setDescription("Your good was posted")
-                            .build();
-                    alertDialog.setCancelable(true);
-                    alertDialog.show();
+                    loadImageToFirebase(contentUri);
+//                    LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(Good_owner_post.this, DialogTypes.TYPE_SUCCESS)
+//                            .setTitle("SUCCESS")
+//                            .setDescription("Your good was posted")
+//                            .build();
+//                    alertDialog.setCancelable(true);
+//                    alertDialog.show();
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -195,12 +200,12 @@ public class Good_owner_post extends AppCompatActivity {
         }
         if (requestCode == GALLERY_RE_CODE){
             if (resultCode == Activity.RESULT_OK){
-                Uri contentUri = data.getData();
+                contentUri = data.getData();
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 String imageFileName = "JPEG_" + timeStamp +"."+getFileExt(contentUri);
                 Log.d("tag", "onActivityResult: Gallery Image Uri:  " +  imageFileName);
-//                circleImageView.setImageURI(contentUri);
-                loadImageToFirebase(contentUri);
+                circleImageView.setImageURI(contentUri);
+//                loadImageToFirebase(contentUri);
             }
 
         }
@@ -218,11 +223,16 @@ public class Good_owner_post extends AppCompatActivity {
                         String pichauri = uri.toString();
                         ////ADDING IMAGE URI FIELD
                         Map<String , Object> oyaa = new HashMap<>();
-                        oyaa.put("image Uri",pichauri);
+                        oyaa.put("image_uri",pichauri);
                         firestore.collection("Goods").document(item_name.getText().toString())
                                 .set(oyaa, SetOptions.merge());
 
-//                        Toast.makeText(getApplicationContext(), "TASK COMPLETED SUCCESSFULLY", Toast.LENGTH_LONG).show();
+                        LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(Good_owner_post.this, DialogTypes.TYPE_SUCCESS)
+                                .setTitle("SUCCESS")
+                                .setDescription("Your good was posted")
+                                .build();
+                        alertDialog.setCancelable(true);
+                        alertDialog.show();
 //                        Snackbar.make(getCurrentFocus(),"TASK COMPLETED SUCCESSFULLY",3500).show();
 
                         ////END OF ADDING IMAGE URI FIELD
@@ -233,7 +243,6 @@ public class Good_owner_post extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(Good_owner_post.this, "DP not uploaded", Toast.LENGTH_LONG).show();
-//                prog_pic.setVisibility(View.GONE);
             }
         });
 
