@@ -1,19 +1,16 @@
-package org.trustfuse.mpesa_stktrial;
+package org.trustfuse.mpesa_stktrial.Authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.cazaea.sweetalert.SweetAlertDialog;
 import com.google.firebase.auth.FirebaseAuth;
-import com.labters.lottiealertdialoglibrary.DialogTypes;
-import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
+
+import org.trustfuse.mpesa_stktrial.Good_Owner.Good_owner_post;
+import org.trustfuse.mpesa_stktrial.R;
 
 public class First_Page extends AppCompatActivity {
 
@@ -32,14 +29,15 @@ public class First_Page extends AppCompatActivity {
         consumer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Login.class);
+                Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
             }
         });
         good_owner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Good_owner_post.class);
+                Intent intent = new Intent(getApplicationContext(), Good_owner_post.class);
+//                Intent intent = new Intent(getApplicationContext(), Single_Categories.class);
 //                Intent intent = new Intent(getApplicationContext(),Good_owner_login.class);
                 startActivity(intent);
 //                new SweetAlertDialog(First_Page.this, SweetAlertDialog.SUCCESS_TYPE)

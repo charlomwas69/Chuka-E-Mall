@@ -9,6 +9,11 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.trustfuse.mpesa_stktrial.Fragments.Account_frag;
+import org.trustfuse.mpesa_stktrial.Fragments.Cart_frag;
+import org.trustfuse.mpesa_stktrial.Fragments.Categories_frag;
+import org.trustfuse.mpesa_stktrial.Fragments.Home_frag;
+
 public class Main_Menu extends AppCompatActivity {
 
     @Override

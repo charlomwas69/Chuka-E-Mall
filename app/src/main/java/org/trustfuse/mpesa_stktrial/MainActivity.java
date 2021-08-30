@@ -5,20 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.androidstudy.daraja.Daraja;
 import com.androidstudy.daraja.DarajaListener;
-import com.androidstudy.daraja.model.LNMExpress;
-import com.androidstudy.daraja.model.LNMResult;
-import com.androidstudy.daraja.util.TransactionType;
 import com.androidstudy.daraja.model.AccessToken;
+
+import org.trustfuse.mpesa_stktrial.Authentication.First_Page;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -52,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         ///my own
         sendButton.setOnClickListener(v -> {
 
-            Intent intent = new Intent(getApplicationContext(),First_Page.class);
+            Intent intent = new Intent(getApplicationContext(), First_Page.class);
             startActivity(intent);
 
 //            //Get Phone Number from User Input

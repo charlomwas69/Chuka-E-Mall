@@ -1,4 +1,4 @@
-package org.trustfuse.mpesa_stktrial;
+package org.trustfuse.mpesa_stktrial.Fragments;
 
 import android.Manifest;
 import android.app.Activity;
@@ -41,6 +41,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import org.trustfuse.mpesa_stktrial.R;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -74,7 +76,7 @@ public class Account_frag extends Fragment {
         phone_number = root.findViewById(R.id.c_phone_number);
         emaill = root.findViewById(R.id.c_email);
         image = root.findViewById(R.id.consumer_image);
-        update = root.findViewById(R.id.edit_profile);
+//        update = root.findViewById(R.id.edit_profile);
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -91,7 +93,7 @@ public class Account_frag extends Fragment {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "Pic Update failed" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Pic Update failed", Toast.LENGTH_SHORT).show();
             }
         });
         //end of Setting of image from Firebase storage
@@ -131,7 +133,7 @@ public class Account_frag extends Fragment {
             }
         });
 
-        update.setOnClickListener(v -> Toast.makeText(getActivity(), "WORKING", Toast.LENGTH_LONG).show());
+//        update.setOnClickListener(v -> Toast.makeText(getActivity(), "WORKING", Toast.LENGTH_LONG).show());
 
         return root;
     }

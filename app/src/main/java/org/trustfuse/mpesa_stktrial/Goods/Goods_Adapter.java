@@ -1,17 +1,16 @@
-package org.trustfuse.mpesa_stktrial;
+package org.trustfuse.mpesa_stktrial.Goods;
 
 import com.google.firebase.firestore.Query;
 
 public class Goods_Adapter {
 
-    private String Category,Description,Name,image_uri;
-    private Long Price;
+    private String Category,Description,Name,image_uri,Price;
 
     private Goods_Adapter(){
 
     }
-    private Goods_Adapter(String Categoty, String Description,String Name, String image_uri, long Price){
-        this.Category = Categoty;
+    private Goods_Adapter(String Category, String Description,String Name, String image_uri, String Price){
+        this.Category = Category;
         this.Description = Description;
         this.Name = Name;
         this.image_uri = image_uri;
@@ -50,11 +49,11 @@ public class Goods_Adapter {
         this.image_uri = image_uri;
     }
 
-    public Long getPrice() {
+    public String getPrice() {
         return Price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(String price) {
         Price = price;
     }
 }

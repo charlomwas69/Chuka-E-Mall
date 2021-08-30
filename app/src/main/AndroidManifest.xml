@@ -6,11 +6,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:allowBackup="true"
@@ -19,14 +20,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MpesaStkTrial">
-        <activity android:name=".Good_owner_post" />
-        <activity android:name=".Good_owner_login" />
-        <activity android:name=".post_test" />
+        <activity android:name=".Single_good"></activity>
+        <activity android:name=".Categories.Single_Categories" />
+        <activity android:name=".Good_Owner.Good_owner_post" />
+        <activity android:name=".Authentication.Good_owner_login" />
         <activity android:name=".Main_Menu" />
-        <activity android:name=".Login" />
-        <activity android:name=".Consumer_sign_in" />
-        <activity android:name=".Goodowner_sign_in" />
-        <activity android:name=".First_Page">
+        <activity android:name=".Authentication.Login" />
+        <activity android:name=".Authentication.Consumer_sign_in" />
+        <activity android:name=".Authentication.Goodowner_sign_in" />
+        <activity android:name=".Authentication.First_Page">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

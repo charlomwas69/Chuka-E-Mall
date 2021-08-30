@@ -288,15 +288,15 @@
                     android:layout_marginTop="16dp"
                     android:background="@color/teal_700" />
 
-                <Button
-                    android:id="@+id/edit_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Update profile"
-                    android:gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/edit_text_design"
-                    android:drawableLeft="@drawable/ic_baseline_edit_24"/>
+<!--                <Button-->
+<!--                    android:id="@+id/edit_profile"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:text="Update profile"-->
+<!--                    android:gravity="center"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:background="@drawable/edit_text_design"-->
+<!--                    android:drawableLeft="@drawable/ic_baseline_edit_24"/>-->
 
                 <LinearLayout
                     android:layout_width="match_parent"

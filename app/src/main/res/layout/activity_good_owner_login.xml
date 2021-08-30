@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Good_owner_login">
+    tools:context=".Authentication.Good_owner_login">
     <TextView
         android:id="@+id/resend_otp_good_owner"
         android:layout_width="wrap_content"

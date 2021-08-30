@@ -1,4 +1,4 @@
-package org.trustfuse.mpesa_stktrial;
+package org.trustfuse.mpesa_stktrial.Good_Owner;
 
 import android.Manifest;
 import android.app.Activity;
@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -25,10 +24,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
-import com.cazaea.sweetalert.SweetAlertDialog;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
@@ -37,6 +34,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.labters.lottiealertdialoglibrary.DialogTypes;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
+
+import org.trustfuse.mpesa_stktrial.R;
 
 import java.io.File;
 import java.io.IOException;
@@ -69,7 +68,7 @@ public class Good_owner_post extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_good_owner_post);
         circleImageView = findViewById(R.id.good_image);
-        item_name = findViewById(R.id.item_name);
+        item_name = findViewById(R.id.i_name);
         item_category = findViewById(R.id.item_category);
         item_price = findViewById(R.id.item_price);
         item_description = findViewById(R.id.item_description);
@@ -79,12 +78,15 @@ public class Good_owner_post extends AppCompatActivity {
         cardView = findViewById(R.id.card_view2);
 
 
+
         cardView.setVisibility(View.GONE);
+//        post.setVisibility(View.GONE);
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(gallery, GALLERY_RE_CODE);
+//                Toast.makeText(getApplicationContext(),"Fuck",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -120,6 +122,13 @@ public class Good_owner_post extends AppCompatActivity {
             }
         }
         else {
+            LottieAlertDialog alertDialog1= new LottieAlertDialog.Builder(Good_owner_post.this, DialogTypes.TYPE_LOADING)
+                    .setTitle("UPLOADING...")
+                    .setDescription("Posting your Product")
+                    .build();
+            alertDialog1.setCancelable(false);
+            alertDialog1.show();
+
             DocumentReference documentReference = firestore.collection("Goods").document(name);
             Map<String,Object> goods = new HashMap<>();
 
@@ -127,25 +136,12 @@ public class Good_owner_post extends AppCompatActivity {
             goods.put("Name",name);
             goods.put("Price",price);
             goods.put("Description",description);
-
             documentReference.set(goods).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-//                    Toast.makeText(getApplicationContext(),"Good posted",Toast.LENGTH_LONG).show();
-//                    Snackbar.make(getCurrentFocus(),"Good succesfully Posted Wait to upload Image",3500).show();
-//                    askCameraperm();
-                    item_name.setText("");
-                    item_description.setText("");
-                    item_price.setText("");
-                    item_category.setText("");
-
                     loadImageToFirebase(contentUri);
-//                    LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(Good_owner_post.this, DialogTypes.TYPE_SUCCESS)
-//                            .setTitle("SUCCESS")
-//                            .setDescription("Your good was posted")
-//                            .build();
-//                    alertDialog.setCancelable(true);
-//                    alertDialog.show();
+
+                    alertDialog1.dismiss();
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -190,7 +186,7 @@ public class Good_owner_post extends AppCompatActivity {
         if (requestCode == CAM_REQ_CODE){
             if (resultCode == Activity.RESULT_OK){
                 File f = new File(currentPhotoPath);
-//                circleImageView.setImageURI(Uri.fromFile(f));
+                circleImageView.setImageURI(Uri.fromFile(f));
                 Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                 Uri contentUri = Uri.fromFile(f);
                 mediaScanIntent.setData(contentUri);
@@ -203,8 +199,10 @@ public class Good_owner_post extends AppCompatActivity {
                 contentUri = data.getData();
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 String imageFileName = "JPEG_" + timeStamp +"."+getFileExt(contentUri);
-                Log.d("tag", "onActivityResult: Gallery Image Uri:  " +  imageFileName);
+//                Log.d("tag", "onActivityResult: Gallery Image Uri:  " +  imageFileName);
+//                Toast.makeText(getApplicationContext(),"onActivityResult: Gallery Image Uri:\" " + imageFileName,Toast.LENGTH_LONG).show();
                 circleImageView.setImageURI(contentUri);
+                cardView.setVisibility(View.VISIBLE);
 //                loadImageToFirebase(contentUri);
             }
 
@@ -213,7 +211,7 @@ public class Good_owner_post extends AppCompatActivity {
 
     private void loadImageToFirebase(final Uri contentUri) {
 //        final StorageReference fileRef = storageReference.child("drivers/"+firebaseAuth.getCurrentUser().getUid()+"profile_pic").child(contentUri.getLastPathSegment());
-        final  StorageReference fileRef = storageReference.child("Images/"+item_name.getText().toString()+"profile_pic");
+        final  StorageReference fileRef = storageReference.child("Images/"+ item_name.getText().toString());
         fileRef.putFile(contentUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -221,15 +219,21 @@ public class Good_owner_post extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         String pichauri = uri.toString();
+
                         ////ADDING IMAGE URI FIELD
                         Map<String , Object> oyaa = new HashMap<>();
                         oyaa.put("image_uri",pichauri);
                         firestore.collection("Goods").document(item_name.getText().toString())
                                 .set(oyaa, SetOptions.merge());
+                        item_name.setText("");
+                        item_description.setText("");
+                        item_price.setText("");
+                        item_category.setText("");
+                        circleImageView.setImageURI(Uri.parse(""));
 
                         LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(Good_owner_post.this, DialogTypes.TYPE_SUCCESS)
                                 .setTitle("SUCCESS")
-                                .setDescription("Your good was posted")
+                                .setDescription("Please wait as your Good is posted")
                                 .build();
                         alertDialog.setCancelable(true);
                         alertDialog.show();
@@ -242,7 +246,13 @@ public class Good_owner_post extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Good_owner_post.this, "DP not uploaded", Toast.LENGTH_LONG).show();
+                Toast.makeText(Good_owner_post.this, "DP not uploaded" +e.getMessage(), Toast.LENGTH_LONG).show();
+                LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(Good_owner_post.this, DialogTypes.TYPE_ERROR)
+                        .setTitle("FAILURE")
+                        .setDescription("Good not posted")
+                        .build();
+                alertDialog.setCancelable(true);
+                alertDialog.show();
             }
         });
 

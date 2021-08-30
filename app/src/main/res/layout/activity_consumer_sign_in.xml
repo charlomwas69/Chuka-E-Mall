@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_walk"
-    tools:context=".Consumer_sign_in">
+    tools:context=".Authentication.Consumer_sign_in">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

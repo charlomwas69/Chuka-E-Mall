@@ -1,4 +1,4 @@
-package org.trustfuse.mpesa_stktrial;
+package org.trustfuse.mpesa_stktrial.Authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +18,10 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
+
+import org.trustfuse.mpesa_stktrial.Authentication.Login;
+import org.trustfuse.mpesa_stktrial.Main_Menu;
+import org.trustfuse.mpesa_stktrial.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -114,7 +118,7 @@ public class Consumer_sign_in extends AppCompatActivity {
             firebaseFirestore.collection("Consumer").document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
                     .set(dataa, SetOptions.merge());
 
-            Intent intent = new Intent(getApplicationContext(),Main_Menu.class);
+            Intent intent = new Intent(getApplicationContext(), Main_Menu.class);
                     startActivity(intent);
                     progressBar.setVisibility(View.GONE);
             //end of add data

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Good_owner_post">
+    tools:context=".Good_Owner.Good_owner_post">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -128,7 +128,7 @@
                         android:textColor="#1C1F32" />
 
                     <EditText
-                        android:id="@+id/item_name"
+                        android:id="@+id/i_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
