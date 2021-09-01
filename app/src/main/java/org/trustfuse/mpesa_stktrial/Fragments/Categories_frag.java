@@ -41,7 +41,7 @@ public class Categories_frag extends Fragment {
 //        return inflater.inflate(R.layout.category_fragment,container,false);
         View view = inflater.inflate(R.layout.category_fragment,container,false);
 
-//        progressBarr = view.findViewById(R.id.category_recycler);
+        progressBarr = view.findViewById(R.id.category_progress);
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         recyclerView = view.findViewById(R.id.category_recycler);
@@ -62,7 +62,7 @@ public class Categories_frag extends Fragment {
 
                 categoriesViewHolder.categoryy.setText(categories_adapter.getCategory());
                 Glide.with(getContext()).load(categories_adapter.getImage()).into(categoriesViewHolder.circleImageVieww);
-//                progressBarr.setVisibility(View.GONE);
+                progressBarr.setVisibility(View.GONE);
             }
             @NonNull
             @Override

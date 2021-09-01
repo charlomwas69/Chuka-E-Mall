@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.trustfuse.mpesa_stktrial.Categories.Single_Categories;
 import org.trustfuse.mpesa_stktrial.R;
+import org.trustfuse.mpesa_stktrial.Single_good;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -36,7 +37,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 value = name.getText().toString();
-                itemView.getContext().startActivity(new Intent(itemView.getContext(), Single_Categories.class));
+                itemView.getContext().startActivity(new Intent(itemView.getContext(), Single_good.class));
             }
         });
 //        progressBar = itemView.findViewById(R.id.prog_pic);

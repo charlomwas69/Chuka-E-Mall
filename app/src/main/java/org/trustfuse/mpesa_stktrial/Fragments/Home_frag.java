@@ -37,6 +37,10 @@ public class Home_frag extends Fragment {
     StorageReference storageReference;
     FirestoreRecyclerAdapter<Goods_Adapter, MyViewHolder> adapter;
     ProgressBar progressBarr;
+    public static String value;
+    public static String getValue() {
+        return value;
+    }
 
 
     @Nullable
@@ -70,6 +74,7 @@ public class Home_frag extends Fragment {
                 myViewHolder.category.setText(goods_adapter.getCategory());
                 myViewHolder.price.setText(goods_adapter.getPrice());
                 Glide.with(getContext()).load(goods_adapter.getImage_uri()).into(myViewHolder.circleImageView);
+
                 progressBarr.setVisibility(View.GONE);
             }
             @NonNull

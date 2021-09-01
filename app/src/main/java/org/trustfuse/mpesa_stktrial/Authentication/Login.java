@@ -154,7 +154,7 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
-                Toast.makeText(Login.this, "Phone number not verified"+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "Phone number not verified"+ e.getMessage(), Toast.LENGTH_LONG).show();
                 progressbar.setVisibility(View.GONE);
                 otp.setEnabled(true);
 //                state.setVisibility(View.INVISIBLE);

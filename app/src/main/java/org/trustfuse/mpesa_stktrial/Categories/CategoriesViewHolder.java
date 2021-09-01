@@ -18,6 +18,7 @@ public class CategoriesViewHolder extends RecyclerView.ViewHolder {
     public static String getValue() {
         return value;
     }
+
     public CategoriesViewHolder(@NonNull View itemView) {
         super(itemView);
         categoryy = itemView.findViewById(R.id.categoryy);
