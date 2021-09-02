@@ -29,4 +29,9 @@
     <color name="ellipse_12_ek1_color">#c4e6b7</color>
     <color name="base_ek1_color">#ff6969</color>
     <color name="add_to_cart_ek1_color">#ffffff</color>
+    <color name="_bg___14_success_1_color">#f5f6f8</color>
+    <color name="checkout_color">#515c6f</color>
+    <color name="base_color">#ff6969</color>
+    <color name="my_orders_color">#ffffff</color>
+    <color name="rectangle_2_color">#ffffff</color>
 </resources>

@@ -18,6 +18,8 @@
     <string name="faux_sued_ankle_boots_string">Faux Sued Ankle Boots</string>
     <string name="__49_99_string">$49.99</string>
     <string name="_4_9_string">4.9</string>
+    <string name="your_order_was_placed_successfully__for_more_details__check_all_my_orders_page_under_profile_tab_string">Your order was placed successfully. For more details, check All My Orders page under Profile tab</string>
+    <string name="my_orders_string">MY ORDERS</string>
 
     <array name="acc_type">
         <item>Consumer/ Good owner</item>

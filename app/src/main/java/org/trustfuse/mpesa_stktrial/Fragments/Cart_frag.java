@@ -2,6 +2,7 @@ package org.trustfuse.mpesa_stktrial.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,8 +33,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.trustfuse.mpesa_stktrial.Authentication.Login;
 import org.trustfuse.mpesa_stktrial.CartViewHolder;
 import org.trustfuse.mpesa_stktrial.Cart_Adapter;
+import org.trustfuse.mpesa_stktrial.Order_succesful;
 import org.trustfuse.mpesa_stktrial.R;
 
 import java.util.ArrayList;
@@ -52,6 +55,7 @@ public class Cart_frag extends Fragment {
     TextView sum_display;
     ProgressBar progressBarr;
     ArrayList<Integer> list;
+    View next;
 
     @Nullable
     @Override
@@ -62,6 +66,7 @@ public class Cart_frag extends Fragment {
 //        noItemDefault = view.findViewById(R.id.default_nodata);
         recyclerView = view.findViewById(R.id.cart_recycler);
         sum_display = view.findViewById(R.id.total);
+        next = view.findViewById(R.id.rectangle_4);
         //cart
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -69,6 +74,14 @@ public class Cart_frag extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         firebaseFirestore = FirebaseFirestore.getInstance();
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), Order_succesful.class);
+                startActivity(intent);
+            }
+        });
 //        view.findViewById(R.id.progress_bar).setVisibility(View.GONE);
 
         Query query = firebaseFirestore.collection("Cart")

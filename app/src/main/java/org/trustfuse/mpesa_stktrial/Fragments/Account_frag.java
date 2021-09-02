@@ -79,7 +79,7 @@ public class Account_frag extends Fragment {
         phone_number = root.findViewById(R.id.c_phone_number);
         emaill = root.findViewById(R.id.c_email);
         image = root.findViewById(R.id.consumer_image);
-//        update = root.findViewById(R.id.edit_profile);
+        update = root.findViewById(R.id.edit_profile);
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -90,6 +90,13 @@ public class Account_frag extends Fragment {
                 .build();
         alertDialog.setCancelable(false);
         alertDialog.show();
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
 
         //Setting of image from Firebase storage

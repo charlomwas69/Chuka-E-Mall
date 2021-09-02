@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout android:id="@+id/review"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/lorem_ipsum_dolor_sit_amet__consectetur_adipiscing_elit__sed_do_eiusmod_tempor_incididunt"
+            android:layout_width="194dp"
+            android:layout_height="43dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="39dp"
+            android:fontFamily="@font/amarante"
+            android:text="@string/lorem_ipsum_dolor_sit_amet__consectetur_adipiscing_elit__sed_do_eiusmod_tempor_incididunt_string"
+            android:textColor="@color/lorem_ipsum_dolor_sit_amet__consectetur_adipiscing_elit__sed_do_eiusmod_tempor_incididunt_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/jane_doe"
+            android:layout_width="66dp"
+            android:layout_height="23dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/aclonica"
+            android:text="Jane doe string"
+            android:textColor="@color/lorem_ipsum_dolor_sit_amet__consectetur_adipiscing_elit__sed_do_eiusmod_tempor_incididunt_color"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/_10_oct__2018"
+            android:layout_width="96dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginStart="252dp"
+            android:layout_marginTop="0dp"
+            android:alpha="0.5"
+            android:fontFamily="@font/aclonica"
+            android:gravity="end"
+            android:text="10_oct_2018"
+            android:textColor="@color/lorem_ipsum_dolor_sit_amet__consectetur_adipiscing_elit__sed_do_eiusmod_tempor_incididunt_color"
+            android:textSize="12sp" />
+
+
+        <RelativeLayout android:id="@+id/icon"
+            android:layout_marginTop="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <View android:id="@+id/ellipse_12"
+                android:background="@drawable/ellipse_12_shape"
+                android:layout_marginLeft="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp" />
+
+            <TextView
+                android:id="@+id/jd"
+                android:layout_width="31dp"
+                android:layout_height="34dp"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/aclonica"
+                android:gravity="center"
+                android:text="jd string"
+                android:textColor="@color/jd_color"
+                android:textSize="22sp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>
