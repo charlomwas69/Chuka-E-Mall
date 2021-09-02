@@ -88,6 +88,8 @@ public class Good_owner_login extends AppCompatActivity {
                     }else {
                         login.setEnabled(false);
                         otp.setVisibility(View.GONE);
+                        otp.setEnabled(false);
+                        login.setClickable(false);
                         progressbar.setVisibility(View.VISIBLE);
 //                        state.setText("Logging in");
 //                        state.setVisibility(View.VISIBLE);

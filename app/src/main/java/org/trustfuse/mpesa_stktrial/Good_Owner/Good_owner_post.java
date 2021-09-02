@@ -62,6 +62,7 @@ public class Good_owner_post extends AppCompatActivity {
     private static final int CAM_REQ_CODE = 101;
     public static final int GALLERY_RE_CODE = 103;
     String currentPhotoPath;
+    LottieAlertDialog alertDialog1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,14 +106,14 @@ public class Good_owner_post extends AppCompatActivity {
 
         String name = item_name.getText().toString();
         String category = item_category.getText().toString();
-        String price = item_price.getText().toString();
+        Integer price = Integer.valueOf(item_price.getText().toString());
         String description = item_description.getText().toString();
 
         if (TextUtils.isEmpty(name)){
             item_name.setError("Item name is required");
             if (TextUtils.isEmpty(category)){
                 item_category.setError("Category cant be empty");
-                if (TextUtils.isEmpty(price)){
+                if (TextUtils.isEmpty(price.toString())){
                     item_price.setError("Price is required");
                 }
             }
@@ -122,7 +123,7 @@ public class Good_owner_post extends AppCompatActivity {
             }
         }
         else {
-            LottieAlertDialog alertDialog1= new LottieAlertDialog.Builder(Good_owner_post.this, DialogTypes.TYPE_LOADING)
+            alertDialog1= new LottieAlertDialog.Builder(Good_owner_post.this, DialogTypes.TYPE_LOADING)
                     .setTitle("UPLOADING...")
                     .setDescription("Posting your Product")
                     .build();
@@ -141,7 +142,7 @@ public class Good_owner_post extends AppCompatActivity {
                 public void onSuccess(Void aVoid) {
                     loadImageToFirebase(contentUri);
 
-                    alertDialog1.dismiss();
+//                    alertDialog1.dismiss();
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -219,7 +220,7 @@ public class Good_owner_post extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         String pichauri = uri.toString();
-
+                        alertDialog1.dismiss();
                         ////ADDING IMAGE URI FIELD
                         Map<String , Object> oyaa = new HashMap<>();
                         oyaa.put("image_uri",pichauri);
@@ -233,10 +234,12 @@ public class Good_owner_post extends AppCompatActivity {
 
                         LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(Good_owner_post.this, DialogTypes.TYPE_SUCCESS)
                                 .setTitle("SUCCESS")
-                                .setDescription("Please wait as your Good is posted")
+                                .setDescription("Your Good was succesfully posted")
                                 .build();
                         alertDialog.setCancelable(true);
                         alertDialog.show();
+                        cardView.setVisibility(View.GONE);
+//                        alertDialog1.dismiss();
 //                        Snackbar.make(getCurrentFocus(),"TASK COMPLETED SUCCESSFULLY",3500).show();
 
                         ////END OF ADDING IMAGE URI FIELD

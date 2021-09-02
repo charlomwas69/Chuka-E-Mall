@@ -39,8 +39,11 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.labters.lottiealertdialoglibrary.DialogTypes;
+import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 import com.squareup.picasso.Picasso;
 
+import org.trustfuse.mpesa_stktrial.Good_Owner.Good_owner_post;
 import org.trustfuse.mpesa_stktrial.R;
 
 import java.io.File;
@@ -81,6 +84,13 @@ public class Account_frag extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
 
+        LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(getContext(), DialogTypes.TYPE_LOADING)
+                .setTitle("LOADING DATA")
+                .setDescription("Account data loading...")
+                .build();
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+
 
         //Setting of image from Firebase storage
         StorageReference set_Dp = storageReference.child("Consumer/" + firebaseAuth.getCurrentUser().getUid() + "profile_pic");
@@ -89,11 +99,13 @@ public class Account_frag extends Fragment {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(image);
+                alertDialog.dismiss();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getContext(), "Pic Update failed", Toast.LENGTH_SHORT).show();
+                alertDialog.dismiss();
             }
         });
         //end of Setting of image from Firebase storage

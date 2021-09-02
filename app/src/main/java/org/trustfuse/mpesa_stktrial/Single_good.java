@@ -3,12 +3,16 @@ package org.trustfuse.mpesa_stktrial;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,10 +29,18 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.labters.lottiealertdialoglibrary.DialogTypes;
+import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 import com.squareup.picasso.Picasso;
 
+import org.trustfuse.mpesa_stktrial.Authentication.Login;
 import org.trustfuse.mpesa_stktrial.Categories.CategoriesViewHolder;
+import org.trustfuse.mpesa_stktrial.Fragments.Cart_frag;
+import org.trustfuse.mpesa_stktrial.Good_Owner.Good_owner_post;
 import org.trustfuse.mpesa_stktrial.Goods.MyViewHolder;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Single_good extends AppCompatActivity {
     ImageButton btn;
@@ -37,12 +49,17 @@ public class Single_good extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
     StorageReference storageReference;
     FirebaseAuth firebaseAuth;
+    ProgressBar progressBar;
+    Button add_to_cart;
+    public String the_uri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_good);
 
         btn = findViewById(R.id.addBtn);
+        add_to_cart = findViewById(R.id.add_to_cart);
+        progressBar = findViewById(R.id.prog_pic);
         Category = findViewById(R.id.single_item_category);
         Name = findViewById(R.id.single_item_name);
         Description = findViewById(R.id.single_item_description);
@@ -54,20 +71,56 @@ public class Single_good extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         user.setText(firebaseAuth.getCurrentUser().getUid());
+        add_to_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-//        StorageReference set_Dp = storageReference.child("Images/" + th);
-////        proggg.setVisibility(View.VISIBLE);
-//        set_Dp.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//            @Override
-//            public void onSuccess(Uri uri) {
-//                Picasso.get().load(uri).into(imageView);
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(getApplicationContext(), "Pic Update failed", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+                /////Saving cart data
+                String cart_name = Name.getText().toString();
+                    String cart_category = Category.getText().toString();
+                    String cart_price = Price.getText().toString();
+
+                    DocumentReference documentReference = firebaseFirestore.collection("Cart").document();
+                    Map<String,Object> goods = new HashMap<>();
+
+                    goods.put("Category",cart_category);
+                    goods.put("Name",cart_name);
+                    goods.put("Price",cart_price);
+                    goods.put("Purchaser",firebaseAuth.getCurrentUser().getUid());
+                    goods.put("Image",the_uri);
+                    documentReference.set(goods).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            LottieAlertDialog alertDialog1= new LottieAlertDialog.Builder(Single_good.this, DialogTypes.TYPE_SUCCESS)
+                            .setTitle("SUCCESS...")
+                            .setDescription("Item added to cart")
+                            .build();
+                    alertDialog1.setCancelable(true);
+                    alertDialog1.show();
+//                            Intent intent = new Intent(getApplicationContext(), Cart_frag.class);
+//                            startActivity(intent);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(getApplicationContext(), DialogTypes.TYPE_ERROR)
+                                    .setTitle("FAILED")
+                                    .setDescription("Item not added")
+                                    .build();
+                            alertDialog.setCancelable(true);
+                            alertDialog.show();
+                        }
+                    });
+                //end of saving cart data
+//                LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(Single_good.this, DialogTypes.TYPE_SUCCESS)
+//                        .setTitle("SUCCESS")
+//                        .setDescription("Successfully added")
+//                        .build();
+//                alertDialog.setCancelable(true);
+//                alertDialog.show();
+            }
+        });
+
         firebaseFirestore.collection("Goods")
                 .whereEqualTo("Name", MyViewHolder.getValue())
                 .get()
@@ -81,7 +134,7 @@ public class Single_good extends AppCompatActivity {
                                 String description = document.get("Description").toString();
                                 String name = document.get("Name").toString();
                                 String price = document.get("Price").toString();
-                                String the_uri = document.get("image_uri").toString();
+                                the_uri = document.get("image_uri").toString();
 
                                 Name.setText(name);
                                 Category.setText(category);
@@ -93,6 +146,8 @@ public class Single_good extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         Picasso.get().load(uri).into(imageView);
+//                                        Toast.makeText(getApplicationContext(), (CharSequence) uri,Toast.LENGTH_LONG).show();
+                                        progressBar.setVisibility(View.INVISIBLE);
 //                                        Glide.with(getApplicationContext()).load(the_uri).into(imageView);
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
