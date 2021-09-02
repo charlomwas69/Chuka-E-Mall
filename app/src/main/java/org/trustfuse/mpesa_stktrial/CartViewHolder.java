@@ -11,9 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class CartViewHolder extends RecyclerView.ViewHolder {
 
-    public ImageView cart_image;
+//    public ImageView cart_image;
+    public CircleImageView cart_image;
     public TextView cart_category,cart_name,cart_price;
     public CartViewHolder(@NonNull View itemView) {
         super(itemView);

@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MpesaStkTrial">
+        <activity android:name=".Comments"></activity>
         <activity android:name=".Single_good" />
         <activity android:name=".Categories.Single_Categories" />
         <activity android:name=".Good_Owner.Good_owner_post" />

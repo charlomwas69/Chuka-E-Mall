@@ -1,162 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Main_Menu">
 
-    <RelativeLayout
-        android:id="@+id/repeat_grid_7"
-        android:layout_marginTop="56dp"
-        android:layout_marginStart="25dp"
+    <RelativeLayout android:id="@+id/review"
+        android:layout_marginTop="412dp"
+        android:layout_marginStart="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:ignore="UselessParent">
+        >
+
+        <TextView
+            android:id="@+id/lorem_ipsum_dolor_sit_amet__consectetur_adipiscing_elit__sed_do_eiusmod_tempor_incididunt"
+            android:layout_width="194dp"
+            android:layout_height="43dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="39dp"
+            android:fontFamily="@font/amarante"
+            android:text="@string/lorem_ipsum_dolor_sit_amet__consectetur_adipiscing_elit__sed_do_eiusmod_tempor_incididunt_string"
+            android:textColor="@color/lorem_ipsum_dolor_sit_amet__consectetur_adipiscing_elit__sed_do_eiusmod_tempor_incididunt_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/jane_doe"
+            android:layout_width="66dp"
+            android:layout_height="23dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/aclonica"
+            android:text="Jane doe string"
+            android:textColor="@color/lorem_ipsum_dolor_sit_amet__consectetur_adipiscing_elit__sed_do_eiusmod_tempor_incididunt_color"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/_10_oct__2018"
+            android:layout_width="76dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginLeft="262dp"
+            android:layout_marginTop="0dp"
+            android:alpha="0.5"
+            android:fontFamily="@font/aclonica"
+            android:gravity="end"
+            android:text="`10_oct_2018`"
+            android:textColor="@color/lorem_ipsum_dolor_sit_amet__consectetur_adipiscing_elit__sed_do_eiusmod_tempor_incididunt_color"
+            android:textSize="14sp" />
 
 
-        <RelativeLayout android:id="@+id/_1"
-            android:layout_marginTop="-1dp"
+        <RelativeLayout android:id="@+id/icon"
+            android:layout_marginTop="0dp"
             android:layout_marginStart="0dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
-
-            <RelativeLayout android:id="@+id/item"
-                android:layout_marginTop="1dp"
+            <View android:id="@+id/ellipse_12"
+                android:background="@drawable/ellipse_12_shape"
+                android:layout_marginLeft="0dp"
                 android:layout_marginStart="0dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <View android:id="@+id/rectangle_3"
-                    android:background="@drawable/edit_text_design"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
-
-                <ImageView android:id="@+id/cart_image"
-                    android:src="@drawable/logo_b"
-                    android:contentDescription="women_shoes_png7464"
-                    android:layout_marginStart="19dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="64.7509765625dp"
-                    android:layout_height="59dp" />
-
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/name_in_cart"
-                android:layout_width="73dp"
-                android:layout_height="23dp"
-                android:layout_marginLeft="120dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/almendra_sc"
-                android:text="Name"
-                android:textColor="@color/teal_700"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/categoty_in_cart"
-                android:layout_width="155dp"
-                android:layout_height="23dp"
-                android:layout_marginLeft="120dp"
                 android:layout_marginTop="0dp"
-                android:fontFamily="@font/almendra_sc"
-                android:text="Category"
-                android:textColor="@color/teal_700"
-                android:textSize="15sp" />
+                android:layout_width="60dp"
+                android:layout_height="60dp" />
 
             <TextView
-                android:id="@+id/price_in_cart"
-                android:layout_width="49dp"
-                android:layout_height="23dp"
-                android:layout_marginLeft="120dp"
-                android:layout_marginTop="51dp"
-                android:fontFamily="@font/almendra_sc"
-                android:text="Price"
-                android:textColor="@color/teal_700"
-                android:textSize="15sp" />
+                android:id="@+id/jd"
+                android:layout_width="31dp"
+                android:layout_height="34dp"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/aclonica"
+                android:gravity="center"
+                android:text="jd string"
+                android:textColor="@color/jd_color"
+                android:textSize="22sp" />
 
-
-            <RelativeLayout android:id="@+id/qty"
-                android:layout_marginTop="84dp"
-                android:layout_marginStart="120dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                >
-
-                <TextView android:id="@+id/quantity"
-                    android:fontFamily="@font/almendra_sc"
-                    android:layout_gravity="center_vertical|end"
-                    android:gravity="end"
-                    android:textSize="15sp"
-                    android:textColor="@color/teal_200"
-                    android:layout_marginStart="27dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_width="13dp"
-                    android:layout_height="23dp"
-                    android:text="string 1"
-                    />
-
-
-                <RelativeLayout
-                    android:id="@+id/group_29"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginStart="53dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    >
-
-                    <View android:id="@+id/ellipse_11"
-                        android:background="@drawable/edit_text_design"
-                        android:alpha="0.20000000298023"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginTop="0dp"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp" />
-
-                    <ImageView android:id="@+id/union_1"
-                        android:src="@drawable/logo_b"
-                        android:contentDescription="union_1"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_width="10dp"
-                        android:layout_height="9.9998779296875dp" />
-
-                </RelativeLayout>
-
-
-                <RelativeLayout android:id="@+id/group_30"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginStart="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    >
-
-                    <View android:id="@+id/ellipse_11_ek1"
-                        android:background="@drawable/edit_text_design"
-                        android:alpha="0.20000000298023"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginTop="0dp"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp" />
-
-                    <View android:id="@+id/rectangle_17"
-                        android:background="@drawable/edit_text_design"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_width="8dp"
-                        android:layout_height="0dp" />
-
-                </RelativeLayout>
-
-            </RelativeLayout>
+        </RelativeLayout>
 
         </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
