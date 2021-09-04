@@ -23,7 +23,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -79,8 +78,9 @@ public class Single_good extends AppCompatActivity {
                 String cart_name = Name.getText().toString();
                     String cart_category = Category.getText().toString();
                     String cart_price = Price.getText().toString();
+                    String qty = "1";
 
-                    DocumentReference documentReference = firebaseFirestore.collection("Cart").document();
+                    DocumentReference documentReference = firebaseFirestore.collection("Cart").document(firebaseAuth.getCurrentUser().getUid());
                     Map<String,Object> goods = new HashMap<>();
 
                     goods.put("Category",cart_category);
@@ -88,6 +88,7 @@ public class Single_good extends AppCompatActivity {
                     goods.put("Price",cart_price);
                     goods.put("Purchaser",firebaseAuth.getCurrentUser().getUid());
                     goods.put("Image",the_uri);
+                    goods.put("Qty",qty);
                     documentReference.set(goods).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

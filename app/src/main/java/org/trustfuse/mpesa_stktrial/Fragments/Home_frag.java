@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +39,7 @@ public class Home_frag extends Fragment {
     FirestoreRecyclerAdapter<Goods_Adapter, MyViewHolder> adapter;
     ProgressBar progressBarr;
     public static String value;
+    FragmentActivity listener;
     public static String getValue() {
         return value;
     }
@@ -81,8 +83,6 @@ public class Home_frag extends Fragment {
             @Override
             public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view1 = LayoutInflater.from(getContext()).inflate(R.layout.single_item_template,parent,false);
-//                progressBarr = view1.findViewById(R.id.prog_pic);
-//                progressBarr.setVisibility(view1.GONE);
                 return new MyViewHolder(view1);
             }
         };
@@ -97,6 +97,7 @@ public class Home_frag extends Fragment {
     @Override
     public void onStart() {
         adapter.startListening();
+//        if (dialog != null) { dialog.dismiss(); dialog = null; }
         super.onStart();
     }
 

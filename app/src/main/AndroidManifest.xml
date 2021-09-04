@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MpesaStkTrial">
-        <activity android:name=".Order_succesful"></activity>
+        <activity android:name=".Myorders" />
+        <activity android:name=".Order_succesful" />
         <activity android:name=".Comments" />
         <activity android:name=".Single_good" />
         <activity android:name=".Categories.Single_Categories" />

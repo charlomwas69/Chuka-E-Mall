@@ -125,14 +125,14 @@
 
                 <TextView
                     android:id="@+id/total"
-                    android:layout_width="68dp"
+                    android:layout_width="78dp"
                     android:layout_height="31dp"
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="14dp"
                     android:fontFamily="@font/aclonica"
                     android:text="Total"
                     android:textColor="@color/page_title_color"
-                    android:textSize="20sp" />
+                    android:textSize="15sp" />
 
             </RelativeLayout>
 

@@ -28,6 +28,7 @@ import androidx.core.content.ContentResolverCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,7 +44,10 @@ import com.labters.lottiealertdialoglibrary.DialogTypes;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 import com.squareup.picasso.Picasso;
 
+import org.trustfuse.mpesa_stktrial.Authentication.Login;
 import org.trustfuse.mpesa_stktrial.Good_Owner.Good_owner_post;
+import org.trustfuse.mpesa_stktrial.Goods.MyViewHolder;
+import org.trustfuse.mpesa_stktrial.Myorders;
 import org.trustfuse.mpesa_stktrial.R;
 
 import java.io.File;
@@ -94,7 +98,8 @@ public class Account_frag extends Fragment {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getContext(), Myorders.class);
+                startActivity(intent);
             }
         });
 
@@ -111,7 +116,7 @@ public class Account_frag extends Fragment {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "Pic Update failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Pic Update failed" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
             }
         });
@@ -241,7 +246,6 @@ public class Account_frag extends Fragment {
         });
 
     }
-
     private String getFileExt(Uri contentUri) {
         ContentResolver c = getContext().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();

@@ -106,7 +106,7 @@ public class Good_owner_post extends AppCompatActivity {
 
         String name = item_name.getText().toString();
         String category = item_category.getText().toString();
-        Integer price = Integer.valueOf(item_price.getText().toString());
+        String price = (item_price.getText().toString());
         String description = item_description.getText().toString();
 
         if (TextUtils.isEmpty(name)){

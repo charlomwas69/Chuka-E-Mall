@@ -2,30 +2,31 @@
 <HorizontalScrollView
     xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".Order_succesful">
 
     <ScrollView android:id="@+id/_success_1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <RelativeLayout android:id="@+id/content_container"
-            android:layout_width="wrap_content"
-            android:layout_height="667dp" >
+        <RelativeLayout
+            android:id="@+id/content_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-            <View android:id="@+id/_bg___14_success_1"
-                android:background="@drawable/_bg___14_success_1_shape"
-                android:layout_marginLeft="0dp"
+            <View
+                android:id="@+id/_bg___14_success_1"
+                android:layout_width="match_parent"
+                android:layout_height="667dp"
                 android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
                 android:layout_marginTop="0dp"
-                android:layout_width="375dp"
-                android:layout_height="667dp" />
+                android:background="@drawable/_bg___14_success_1_shape" />
 
             <ImageView android:id="@+id/close"
                 android:src="@drawable/close"
                 android:contentDescription="close"
-                android:layout_marginLeft="337dp"
-                android:layout_marginStart="337dp"
+                android:layout_marginStart="340dp"
                 android:layout_marginTop="36dp"
                 android:layout_width="18dp"
                 android:layout_height="18dp" />
