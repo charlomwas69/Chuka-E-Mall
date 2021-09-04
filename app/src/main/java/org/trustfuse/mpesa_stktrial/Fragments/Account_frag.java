@@ -116,7 +116,7 @@ public class Account_frag extends Fragment {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "Pic Update failed" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Pic Update failed" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
             }
         });

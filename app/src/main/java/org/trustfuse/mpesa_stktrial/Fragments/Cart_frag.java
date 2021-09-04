@@ -26,8 +26,12 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -42,6 +46,7 @@ import org.trustfuse.mpesa_stktrial.CartViewHolder;
 import org.trustfuse.mpesa_stktrial.Cart_Adapter;
 import org.trustfuse.mpesa_stktrial.Order_succesful;
 import org.trustfuse.mpesa_stktrial.R;
+import org.trustfuse.mpesa_stktrial.Single_good;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,6 +68,7 @@ public class Cart_frag extends Fragment {
     ArrayList<Integer> list;
     View next;
     Query query;
+    String uri,category,name,price,qty;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -82,8 +88,27 @@ public class Cart_frag extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), Order_succesful.class);
-                startActivity(intent);
+
+                saveorder();
+            }
+        });
+        DocumentReference documentReference = firebaseFirestore.collection("Cart").document(firebaseAuth.getCurrentUser().getUid());
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                uri = documentSnapshot.getString("Image");
+                category = documentSnapshot.getString("Category");
+                name = documentSnapshot.getString("Name");
+                price = documentSnapshot.getString("Price");
+                qty = documentSnapshot.getString("Qty");
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Failed to fetch data" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -152,6 +177,37 @@ public class Cart_frag extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
         //cart
         return view;
+    }
+
+    private void saveorder() {
+        DocumentReference documentReference = firebaseFirestore.collection("Order").document();
+        Map<String,Object> goods = new HashMap<>();
+
+        goods.put("Category",category);
+        goods.put("Name",name);
+        goods.put("Price",price);
+        goods.put("Purchaser",firebaseAuth.getCurrentUser().getUid());
+        goods.put("Image",uri);
+        goods.put("Qty",qty);
+        documentReference.set(goods).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Intent intent = new Intent(getContext(), Order_succesful.class);
+                startActivity(intent);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(getContext(), DialogTypes.TYPE_ERROR)
+                        .setTitle("FAILED")
+                        .setDescription("Item not added")
+                        .build();
+                alertDialog.setCancelable(true);
+                alertDialog.show();
+            }
+        });
+//        Intent intent = new Intent(getContext(), Order_succesful.class);
+//        startActivity(intent);
     }
 
     private void getTotalPrice() {

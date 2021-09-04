@@ -80,7 +80,7 @@ public class Single_good extends AppCompatActivity {
                     String cart_price = Price.getText().toString();
                     String qty = "1";
 
-                    DocumentReference documentReference = firebaseFirestore.collection("Cart").document(firebaseAuth.getCurrentUser().getUid());
+                    DocumentReference documentReference = firebaseFirestore.collection("Cart").document();
                     Map<String,Object> goods = new HashMap<>();
 
                     goods.put("Category",cart_category);
