@@ -29,6 +29,7 @@ import com.google.firebase.firestore.SetOptions;
 import com.labters.lottiealertdialoglibrary.DialogTypes;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,8 +38,6 @@ import java.util.Objects;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CartViewHolder extends RecyclerView.ViewHolder {
-    public FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-   public FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     public CircleImageView cart_image;
     public TextView cart_category,cart_name,cart_price,quantity;
     public RelativeLayout add,remove;
@@ -54,7 +53,5 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
         add = itemView.findViewById(R.id.group_29);
         remove = itemView.findViewById(R.id.group_30);
         imageView = itemView.findViewById(R.id.delete_from_cart);
-
-
     }
 }

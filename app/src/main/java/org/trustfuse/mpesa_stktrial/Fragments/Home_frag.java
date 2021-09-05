@@ -38,8 +38,11 @@ public class Home_frag extends Fragment {
     StorageReference storageReference;
     FirestoreRecyclerAdapter<Goods_Adapter, MyViewHolder> adapter;
     ProgressBar progressBarr;
+    public static String goodname;
+    public static String getGoodname() {
+        return goodname;
+    }
     public static String value;
-    FragmentActivity listener;
     public static String getValue() {
         return value;
     }

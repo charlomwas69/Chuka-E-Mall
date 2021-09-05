@@ -157,14 +157,22 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="1dp">
 
-                    <View
-                        android:id="@+id/ellipse_11_ek1"
-                        android:layout_width="28dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginTop="0dp"
-                        android:alpha="0.20000000298023"
-                        android:background="@drawable/ic_baseline_remove_circle_24" />
+<!--                    <View-->
+<!--                        android:id="@+id/ellipse_11_ek1"-->
+<!--                        android:layout_width="28dp"-->
+<!--                        android:layout_height="24dp"-->
+<!--                        android:layout_marginStart="0dp"-->
+<!--                        android:layout_marginTop="0dp"-->
+<!--                        android:alpha="0.20000000298023"-->
+<!--                        android:background="@drawable/ic_baseline_remove_circle_24" />-->
+                    <ImageView
+                        android:id="@+id/union_2"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="2dp"
+                        android:contentDescription="union_1"
+                        android:src="@drawable/ic_baseline_remove_circle_24" />
 
                     <View
                         android:id="@+id/rectangle_17"
@@ -186,5 +194,6 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="122dp"
         android:layout_width="380dp"
-        android:layout_height="1dp" />
+        android:layout_height="1dp"
+        android:contentDescription="TODO" />
 </RelativeLayout>

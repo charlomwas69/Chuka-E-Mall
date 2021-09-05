@@ -22,12 +22,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
-        <ImageView android:id="@+id/divider_ek2"
-            android:src="@drawable/divider_ek2"
-            android:layout_marginLeft="145dp"
-            android:layout_marginStart="25dp"
-            android:layout_width="320dp"
-            android:layout_height="1dp" />
         <RelativeLayout android:id="@+id/divider"
             android:layout_marginStart="20dp"
             android:layout_width="wrap_content"
@@ -135,17 +129,6 @@
                     android:textSize="15sp" />
 
             </RelativeLayout>
-
-            <ImageView
-                android:id="@+id/line_4"
-                android:src="@drawable/line_4"
-                android:contentDescription="line_4"
-                android:layout_marginLeft="0dp"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="-1dp"
-                android:layout_width="335dp"
-                android:layout_height="1dp" />
-
         </RelativeLayout>
 </RelativeLayout>
 </RelativeLayout>

@@ -30,8 +30,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -46,7 +44,6 @@ import org.trustfuse.mpesa_stktrial.CartViewHolder;
 import org.trustfuse.mpesa_stktrial.Cart_Adapter;
 import org.trustfuse.mpesa_stktrial.Order_succesful;
 import org.trustfuse.mpesa_stktrial.R;
-import org.trustfuse.mpesa_stktrial.Single_good;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,7 +65,6 @@ public class Cart_frag extends Fragment {
     ArrayList<Integer> list;
     View next;
     Query query;
-    String uri,category,name,price,qty;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,27 +84,8 @@ public class Cart_frag extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                saveorder();
-            }
-        });
-        DocumentReference documentReference = firebaseFirestore.collection("Cart").document(firebaseAuth.getCurrentUser().getUid());
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                uri = documentSnapshot.getString("Image");
-                category = documentSnapshot.getString("Category");
-                name = documentSnapshot.getString("Name");
-                price = documentSnapshot.getString("Price");
-                qty = documentSnapshot.getString("Qty");
-
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "Failed to fetch data" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), Order_succesful.class);
+                startActivity(intent);
             }
         });
 
@@ -128,35 +105,66 @@ public class Cart_frag extends Fragment {
                 cartViewHolder.quantity.setText(cart_adapter.getQty());
                 Glide.with(getContext()).load(cart_adapter.getImage()).into(cartViewHolder.cart_image);
 
+                String use_name = cart_adapter.getName();
+
                 cartViewHolder.add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String totall = String.valueOf(Integer.parseInt(cartViewHolder.quantity.getText().toString()) + 1);
                         cartViewHolder.quantity.setText(totall);
 //                ////ADDING qty FIELD
-                Map<String , Object> quantity = new HashMap<>();
-                quantity.put("Qty",totall);
-                firebaseFirestore.collection("Cart")
-                        .document(firebaseAuth.getCurrentUser().getUid())
-                        .update(quantity);
-                getTotalPrice();
+                        Map<String , Object> quantity = new HashMap<>();
+                        quantity.put("Qty",totall);
+                        firebaseFirestore.collection("Cart")
+                                .document(use_name)
+                                .update(quantity);
+                        getTotalPrice();
                     }
                 });
                 cartViewHolder.remove.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        Toast.makeText(getContext(), "hello", Toast.LENGTH_LONG).show();
-                        if (Integer.parseInt(cartViewHolder.quantity.getText().toString()) >=1){
+                        if (Integer.parseInt(cartViewHolder.quantity.getText().toString()) <=1){
+                            Toast.makeText(getContext(),"Cant be 0", Toast.LENGTH_SHORT).show();
+//                            String totall = String.valueOf(Integer.parseInt(cartViewHolder.quantity.getText().toString()) - 1);
+//                            cartViewHolder.quantity.setText(totall);
+//                            Map<String , Object> quantity = new HashMap<>();
+//                            quantity.put("Qty",totall);
+//                            firebaseFirestore.collection("Cart")
+//                                    .document("SF")
+//                                    .update(quantity);
+//                            getTotalPrice();
+                        }else{
+//                            Toast.makeText(getContext(),"Cant be 0", Toast.LENGTH_SHORT).show();
                             String totall = String.valueOf(Integer.parseInt(cartViewHolder.quantity.getText().toString()) - 1);
                             cartViewHolder.quantity.setText(totall);
-//                ////ADDING qty FIELD
                             Map<String , Object> quantity = new HashMap<>();
                             quantity.put("Qty",totall);
                             firebaseFirestore.collection("Cart")
-                                    .document(firebaseAuth.getCurrentUser().getUid())
+                                    .document(use_name)
                                     .update(quantity);
                             getTotalPrice();
                         }
+                    }
+                });
+                cartViewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        firebaseFirestore.collection("Cart").document(use_name)
+                                .delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+//                                        Toast.makeText(getContext(),"DELETED", Toast.LENGTH_SHORT).show();\
+                                        getTotalPrice();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getContext(),"FAILED", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                     }
                 });
 
@@ -179,37 +187,6 @@ public class Cart_frag extends Fragment {
         return view;
     }
 
-    private void saveorder() {
-        DocumentReference documentReference = firebaseFirestore.collection("Order").document();
-        Map<String,Object> goods = new HashMap<>();
-
-        goods.put("Category",category);
-        goods.put("Name",name);
-        goods.put("Price",price);
-        goods.put("Purchaser",firebaseAuth.getCurrentUser().getUid());
-        goods.put("Image",uri);
-        goods.put("Qty",qty);
-        documentReference.set(goods).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Intent intent = new Intent(getContext(), Order_succesful.class);
-                startActivity(intent);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(getContext(), DialogTypes.TYPE_ERROR)
-                        .setTitle("FAILED")
-                        .setDescription("Item not added")
-                        .build();
-                alertDialog.setCancelable(true);
-                alertDialog.show();
-            }
-        });
-//        Intent intent = new Intent(getContext(), Order_succesful.class);
-//        startActivity(intent);
-    }
-
     private void getTotalPrice() {
         query = firebaseFirestore.collection("Cart")
                 .whereEqualTo("Purchaser", firebaseAuth.getCurrentUser().getUid());
@@ -219,7 +196,6 @@ public class Cart_frag extends Fragment {
                 if (task.isSuccessful()) {
                     list = new ArrayList<Integer>();
                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                        getTotalPrice();
                         String price = Objects.requireNonNull(document.get("Price")).toString();
                         String qty = Objects.requireNonNull(document.get("Qty")).toString();
                         list.add(Integer.parseInt(price) * Integer.parseInt(qty));
