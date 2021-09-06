@@ -10,6 +10,8 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.trustfuse.mpesa_stktrial.Good_Owner.Good_owner_post;
+import org.trustfuse.mpesa_stktrial.MainActivity;
+import org.trustfuse.mpesa_stktrial.Mpesa_Test;
 import org.trustfuse.mpesa_stktrial.R;
 
 public class First_Page extends AppCompatActivity {
@@ -36,7 +38,7 @@ public class First_Page extends AppCompatActivity {
         good_owner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Good_owner_post.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 //                Intent intent = new Intent(getApplicationContext(), Single_Categories.class);
 //                Intent intent = new Intent(getApplicationContext(),Good_owner_login.class);
                 startActivity(intent);

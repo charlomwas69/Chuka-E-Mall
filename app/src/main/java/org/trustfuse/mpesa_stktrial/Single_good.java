@@ -76,49 +76,29 @@ public class Single_good extends AppCompatActivity {
         add_to_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(getApplicationContext(), DialogTypes.TYPE_LOADING)
-                        .setTitle("LOADING DATA")
-                        .setDescription("Account data loading...")
-                        .build();
-                alertDialog.setCancelable(false);
-                alertDialog.show();
-
                 String cart_name = Name.getText().toString();
                     String cart_category = Category.getText().toString();
                     String cart_price = Price.getText().toString();
                     String qty = "1";
                 CollectionReference cities = firebaseFirestore.collection("Cart");
 
-//                Map<String, Object> goods = new HashMap<>();
-//                    goods.put("Category",cart_category);
-//                    goods.put("Name",cart_name);
-//                    goods.put("Price",cart_price);
-//                    goods.put("Purchaser",firebaseAuth.getCurrentUser().getUid());
-//                    goods.put("Image",the_uri);
-//                    goods.put("Qty",qty);
-//                cities.document(cart_name).set(goods);
                 Map<String, Object> goods = new HashMap<>();
-                goods.put("Category",cart_category);
-                goods.put("Name",cart_name);
-                goods.put("Price",cart_price);
-                goods.put("Purchaser",firebaseAuth.getCurrentUser().getUid());
-                goods.put("Image",the_uri);
-                goods.put("Qty",qty);
-                cities.document(cart_name).set(goods).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    goods.put("Category",cart_category);
+                    goods.put("Name",cart_name);
+                    goods.put("Price",cart_price);
+                    goods.put("Purchaser",firebaseAuth.getCurrentUser().getUid());
+                    goods.put("Image",the_uri);
+                    goods.put("Qty",qty);
+//                cities.document(cart_name).set(goods);
+                cities.document(cart_name).set(goods).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
-//                        Toast.makeText(Single_good.this, "ADDED", Toast.LENGTH_SHORT).show();
-                        alertDialog.dismiss();
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(Single_good.this, "ADDDDDDDDED", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        LottieAlertDialog alertDialog0= new LottieAlertDialog.Builder(getApplicationContext(), DialogTypes.TYPE_ERROR)
-                                .setTitle("FAILURE")
-                                .setDescription("Item not added")
-                                .build();
-                        alertDialog0.setCancelable(true);
-                        alertDialog0.show();
+
                     }
                 });
             }

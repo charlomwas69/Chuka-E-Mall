@@ -39,8 +39,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:20.0.0'
     implementation "com.firebaseui:firebase-ui-firestore:6.1.0"
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'com.google.firebase:firebase-functions:20.0.0'
-    implementation 'com.google.firebase:firebase-inappmessaging-display:20.1.0'
+    implementation 'com.google.firebase:firebase-messaging:22.0.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -62,6 +61,10 @@ dependencies {
     implementation 'com.github.shadowalker77:wp7progressbar:1.1.0'
     implementation 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
     implementation 'com.ibm.watson:ibm-watson:9.2.2'
+    implementation 'com.bdhobare:mpesa:0.0.6'
+    implementation 'com.afollestad.material-dialogs:core:0.9.5.0'
+//    implementation project(':mpesa')
+    implementation 'com.google.firebase:firebase-core:19.0.1'
 
 
 

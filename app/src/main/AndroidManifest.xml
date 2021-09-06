@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="org.trustfuse.mpesa_stktrial">
 
+<!--    <service android:name=".MyFirebaseInstanceIdService" android:exported="true">-->
+<!--        <intent-filter>-->
+<!--            <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>-->
+<!--        </intent-filter>-->
+<!--    </service>-->
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -17,10 +23,11 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:largeHeap="true"
         android:theme="@style/Theme.MpesaStkTrial">
+        <activity android:name=".Mpesa_Test"></activity>
         <activity android:name=".Myorders" />
         <activity android:name=".Order_succesful" />
         <activity android:name=".Comments" />

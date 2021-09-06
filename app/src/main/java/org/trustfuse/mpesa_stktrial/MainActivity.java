@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -14,6 +15,9 @@ import android.widget.Toast;
 import com.androidstudy.daraja.Daraja;
 import com.androidstudy.daraja.DarajaListener;
 import com.androidstudy.daraja.model.AccessToken;
+import com.androidstudy.daraja.model.LNMExpress;
+import com.androidstudy.daraja.model.LNMResult;
+import com.androidstudy.daraja.util.TransactionType;
 
 import org.trustfuse.mpesa_stktrial.Authentication.First_Page;
 
@@ -34,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         //start
         //Init Daraja
         //TODO :: REPLACE WITH YOUR OWN CREDENTIALS  :: THIS IS SANDBOX DEMO
-        daraja = Daraja.with("EXvAiaPIofJG2SLwcNXd0y9TqcyAp6lr", "3lX8TIAXzCUurwip", new DarajaListener<AccessToken>() {
+        daraja = Daraja.with("ZW2P0zyZPsqfQhqyvglc2Rmd7ThBqG16", "J5AAeNAgmQ9ArAA2", new DarajaListener<AccessToken>() {
             @Override
             public void onResult(@NonNull AccessToken accessToken) {
                 Log.i(MainActivity.this.getClass().getSimpleName(), accessToken.getAccess_token());
@@ -49,45 +53,45 @@ public class MainActivity extends AppCompatActivity {
         ///my own
         sendButton.setOnClickListener(v -> {
 
-            Intent intent = new Intent(getApplicationContext(), First_Page.class);
-            startActivity(intent);
+//            Intent intent = new Intent(getApplicationContext(), First_Page.class);
+//            startActivity(intent);
 
-//            //Get Phone Number from User Input
-//            phoneNumber = editTextPhoneNumber.getText().toString().trim();
-//
-//            if (TextUtils.isEmpty(phoneNumber)) {
-//                editTextPhoneNumber.setError("Please Provide a Phone Number");
-//                return;
-//            }
-//
+            //Get Phone Number from User Input
+            phoneNumber = editTextPhoneNumber.getText().toString().trim();
+
+            if (TextUtils.isEmpty(phoneNumber)) {
+                editTextPhoneNumber.setError("Please Provide a Phone Number");
+                return;
+            }
+
 //            //TODO :: REPLACE WITH YOUR OWN CREDENTIALS  :: THIS IS SANDBOX DEMO
-//            LNMExpress lnmExpress = new LNMExpress(
-//                    "174379",
-//                    "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919",  //https://developer.safaricom.co.ke/test_credentials
-//                    TransactionType.CustomerBuyGoodsOnline, // TransactionType.CustomerPayBillOnline  <- Apply any of these two
-//                    "10",
-//                    "254708374149",
-//                    "174379",
-//                    phoneNumber,
-//                    "http://mycallbackurl.com/checkout.php",
-//                    "001ABC",
-//                    "Goods Payment"
-//            );
-//
-//            //This is the
-//            daraja.requestMPESAExpress(lnmExpress,
-//                    new DarajaListener<LNMResult>() {
-//                        @Override
-//                        public void onResult(@NonNull LNMResult lnmResult) {
-//                            Log.i(MainActivity.this.getClass().getSimpleName(), lnmResult.ResponseDescription);
-//                        }
-//
-//                        @Override
-//                        public void onError(String error) {
-//                            Log.i(MainActivity.this.getClass().getSimpleName(), error);
-//                        }
-//                    }
-//            );
+            LNMExpress lnmExpress = new LNMExpress(
+                    "174379",
+                    "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919",  //https://developer.safaricom.co.ke/test_credentials
+                    TransactionType.CustomerBuyGoodsOnline, // TransactionType.CustomerPayBillOnline  <- Apply any of these two
+                    "10",
+                    "254708374149",
+                    "174379",
+                    phoneNumber,
+                    "http://mycallbackurl.com/checkout.php",
+                    "001ABC",
+                    "Goods Payment"
+            );
+
+            //This is the
+            daraja.requestMPESAExpress(lnmExpress,
+                    new DarajaListener<LNMResult>() {
+                        @Override
+                        public void onResult(@NonNull LNMResult lnmResult) {
+                            Log.i(MainActivity.this.getClass().getSimpleName(), lnmResult.ResponseDescription);
+                        }
+
+                        @Override
+                        public void onError(String error) {
+                            Log.i(MainActivity.this.getClass().getSimpleName(), error);
+                        }
+                    }
+            );
         });
         //end of my own
 
