@@ -76,13 +76,15 @@
                 android:text="Price"
                 android:textColor="#553838"
                 android:textSize="15sp" />
+
             <TextView
                 android:id="@+id/comment"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginStart="200dp"
                 android:layout_marginTop="51dp"
-                android:background="@drawable/edit_text_design"
+                android:background="@drawable/rectangle_4_shape"
+                android:fontFamily="@font/almendra_sc"
                 android:gravity="center"
                 android:text="Comment" />
 
@@ -96,7 +98,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Successful ✅" />
+                    android:text="Processing ⏳" />
             </RelativeLayout>
 
         </RelativeLayout>

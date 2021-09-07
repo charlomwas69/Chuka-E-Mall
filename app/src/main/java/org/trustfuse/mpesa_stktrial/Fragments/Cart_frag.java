@@ -22,6 +22,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.androidstudy.daraja.Daraja;
+import com.androidstudy.daraja.DarajaListener;
+import com.androidstudy.daraja.model.AccessToken;
+import com.androidstudy.daraja.model.LNMExpress;
+import com.androidstudy.daraja.model.LNMResult;
+import com.androidstudy.daraja.util.TransactionType;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -29,11 +35,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.collect.Lists;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.labters.lottiealertdialoglibrary.DialogTypes;
@@ -42,6 +54,7 @@ import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 import org.trustfuse.mpesa_stktrial.Authentication.Login;
 import org.trustfuse.mpesa_stktrial.CartViewHolder;
 import org.trustfuse.mpesa_stktrial.Cart_Adapter;
+import org.trustfuse.mpesa_stktrial.MainActivity;
 import org.trustfuse.mpesa_stktrial.Order_succesful;
 import org.trustfuse.mpesa_stktrial.R;
 
@@ -54,6 +67,8 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static android.content.ContentValues.TAG;
+
 public class Cart_frag extends Fragment {
 
     RecyclerView recyclerView;
@@ -61,10 +76,13 @@ public class Cart_frag extends Fragment {
     FirebaseFirestore firebaseFirestore;
     StorageReference storageReference;
     FirestoreRecyclerAdapter<Cart_Adapter, CartViewHolder> adapter;
-    TextView sum_display;
+    TextView sum_display,freeshippin;
     ArrayList<Integer> list;
     View next;
+    Daraja daraja;
     Query query;
+    String p_number;
+    String use_name;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,6 +91,7 @@ public class Cart_frag extends Fragment {
         recyclerView = view.findViewById(R.id.cart_recycler);
         sum_display = view.findViewById(R.id.total);
         next = view.findViewById(R.id.rectangle_4);
+        freeshippin = view.findViewById(R.id.free_domestic_shipping);
         //cart
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -81,11 +100,72 @@ public class Cart_frag extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         firebaseFirestore = FirebaseFirestore.getInstance();
 
+        DocumentReference documentReferencee = firebaseFirestore.collection("Consumer").document(firebaseAuth.getCurrentUser().getUid());
+        documentReferencee.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                 p_number = Objects.requireNonNull(documentSnapshot.getString("Phone Number")).substring(1);
+//                freeshippin.setText(p_number);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Failed to fetch data" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //start
+        //Init Daraja
+        //TODO :: REPLACE WITH YOUR OWN CREDENTIALS  :: THIS IS SANDBOX DEMO
+        daraja = Daraja.with("ZW2P0zyZPsqfQhqyvglc2Rmd7ThBqG16", "J5AAeNAgmQ9ArAA2", new DarajaListener<AccessToken>() {
+            @Override
+            public void onResult(@NonNull AccessToken accessToken) {
+                Log.i(Cart_frag.this.getClass().getSimpleName(), accessToken.getAccess_token());
+//                Toast.makeText(getContext(), "TOKEN : " + accessToken.getAccess_token(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.e(Cart_frag.this.getClass().getSimpleName(), error);
+            }
+        });
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), Order_succesful.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getContext(), Order_succesful.class);
+//                startActivity(intent);
+                //TODO :: REPLACE WITH YOUR OWN CREDENTIALS  :: THIS IS SANDBOX DEMO
+                LNMExpress lnmExpress = new LNMExpress(
+                        "174379",
+                        "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919",  //https://developer.safaricom.co.ke/test_credentials
+                        TransactionType.CustomerBuyGoodsOnline, // TransactionType.CustomerPayBillOnline  <- Apply any of these two
+                        sum_display.getText().toString(),
+                        "254708374149",
+                        "174379",
+                        p_number,
+                        "http://mycallbackurl.com/checkout.php",
+                        "001ABC",
+                        "Goods Payment"
+                );
+
+                //This is the
+                daraja.requestMPESAExpress(lnmExpress,
+                        new DarajaListener<LNMResult>() {
+                            @Override
+                            public void onResult(@NonNull LNMResult lnmResult) {
+                                Log.i(Cart_frag.this.getClass().getSimpleName(), lnmResult.ResponseDescription);
+                                updatepaidfield();
+                            }
+
+                            @Override
+                            public void onError(String error) {
+                                Log.i(Cart_frag.this.getClass().getSimpleName(), error);
+                            }
+                        }
+                );
             }
         });
 
@@ -105,7 +185,7 @@ public class Cart_frag extends Fragment {
                 cartViewHolder.quantity.setText(cart_adapter.getQty());
                 Glide.with(getContext()).load(cart_adapter.getImage()).into(cartViewHolder.cart_image);
 
-                String use_name = cart_adapter.getName();
+                 use_name = cart_adapter.getName();
 
                 cartViewHolder.add.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -126,14 +206,6 @@ public class Cart_frag extends Fragment {
                     public void onClick(View v) {
                         if (Integer.parseInt(cartViewHolder.quantity.getText().toString()) <=1){
                             Toast.makeText(getContext(),"Cant be 0", Toast.LENGTH_SHORT).show();
-//                            String totall = String.valueOf(Integer.parseInt(cartViewHolder.quantity.getText().toString()) - 1);
-//                            cartViewHolder.quantity.setText(totall);
-//                            Map<String , Object> quantity = new HashMap<>();
-//                            quantity.put("Qty",totall);
-//                            firebaseFirestore.collection("Cart")
-//                                    .document("SF")
-//                                    .update(quantity);
-//                            getTotalPrice();
                         }else{
 //                            Toast.makeText(getContext(),"Cant be 0", Toast.LENGTH_SHORT).show();
                             String totall = String.valueOf(Integer.parseInt(cartViewHolder.quantity.getText().toString()) - 1);
@@ -187,9 +259,44 @@ public class Cart_frag extends Fragment {
         return view;
     }
 
+    private void updatepaidfield() {
+//        Map<String , Object> quantity = new HashMap<>();
+//        quantity.put("Paid","Yes");
+//        firebaseFirestore.collection("Cart")
+//                .document("arsenal")
+//                .update(quantity);
+        Query queryy = firebaseFirestore.collection("Cart")
+                .whereEqualTo("Purchaser", firebaseAuth.getCurrentUser().getUid())
+                .whereEqualTo("Paid","no");
+        queryy.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+//                    listt = new ArrayList<Integer>();
+                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                        String paidd = Objects.requireNonNull(document.get("Paid")).toString();
+//                        Toast.makeText(getContext(), document.getId(), Toast.LENGTH_LONG).show();
+                        Map<String , Object> quantity = new HashMap<>();
+                        quantity.put("Paid","Yes");
+                        firebaseFirestore.collection("Cart")
+                            .document(document.getId())
+                            .update(quantity);
+                        recalculate();
+//                        listt.add(Integer.parseInt(paidd));
+//                        list.add(Integer.parseInt(Objects.requireNonNull(document.get("Price")).toString()));
+                    }
+//                    recalculate();
+
+                }
+            }
+        });
+
+    }
+
     private void getTotalPrice() {
         query = firebaseFirestore.collection("Cart")
-                .whereEqualTo("Purchaser", firebaseAuth.getCurrentUser().getUid());
+                .whereEqualTo("Purchaser", firebaseAuth.getCurrentUser().getUid())
+                .whereEqualTo("Paid","no");
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {

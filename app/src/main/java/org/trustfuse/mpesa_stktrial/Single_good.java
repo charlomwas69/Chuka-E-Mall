@@ -89,7 +89,8 @@ public class Single_good extends AppCompatActivity {
                     goods.put("Purchaser",firebaseAuth.getCurrentUser().getUid());
                     goods.put("Image",the_uri);
                     goods.put("Qty",qty);
-//                cities.document(cart_name).set(goods);
+                    goods.put("Paid","no");
+                    goods.put("Status","Pending");
                 cities.document(cart_name).set(goods).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

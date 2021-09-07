@@ -64,13 +64,6 @@ public class Consumer_sign_in extends AppCompatActivity {
                 }
 
                 create_user();
-//                String phone_num = phone_number.getText().toString().trim();
-//                Intent intent = new Intent(getApplicationContext(),Login.class);
-//                intent.putExtra("number",phone_num);
-//                startActivity(intent);
-//                Intent intent = getIntent();
-//                String str = intent.getStringExtra("phoneNum");
-
             }
         });
     }
