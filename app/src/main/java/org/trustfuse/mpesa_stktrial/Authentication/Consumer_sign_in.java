@@ -96,9 +96,6 @@ public class Consumer_sign_in extends AppCompatActivity {
                     email.setError("Email is required");
                 }
         }
-
-
-
         else {
             progressBar.setVisibility(View.VISIBLE);
             //add data

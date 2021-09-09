@@ -9,7 +9,7 @@ public class Categories_Adapter {
     }
     private Categories_Adapter(String Category,String Image){
         this.Category = Category;
-        this.Image = Image;
+            this.Image = Image;
     }
 
     public String getCategory() {

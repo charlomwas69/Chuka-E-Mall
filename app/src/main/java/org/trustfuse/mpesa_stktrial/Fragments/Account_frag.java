@@ -3,10 +3,8 @@ package org.trustfuse.mpesa_stktrial.Fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,11 +22,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContentResolverCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,10 +40,7 @@ import com.labters.lottiealertdialoglibrary.DialogTypes;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 import com.squareup.picasso.Picasso;
 
-import org.trustfuse.mpesa_stktrial.Authentication.Login;
-import org.trustfuse.mpesa_stktrial.Good_Owner.Good_owner_post;
-import org.trustfuse.mpesa_stktrial.Goods.MyViewHolder;
-import org.trustfuse.mpesa_stktrial.Myorders;
+import org.trustfuse.mpesa_stktrial.Orders.Myorders;
 import org.trustfuse.mpesa_stktrial.R;
 
 import java.io.File;
@@ -56,9 +49,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-
-import static android.app.Activity.RESULT_OK;
 
 public class Account_frag extends Fragment {
     TextView name, username, locationn, phone_number, emaill;

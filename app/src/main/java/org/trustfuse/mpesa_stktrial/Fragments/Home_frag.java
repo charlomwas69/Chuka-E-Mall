@@ -24,6 +24,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.jetbrains.annotations.NotNull;
 import org.trustfuse.mpesa_stktrial.Goods.Goods_Adapter;
 import org.trustfuse.mpesa_stktrial.Goods.MyViewHolder;
 import org.trustfuse.mpesa_stktrial.R;
@@ -73,7 +74,7 @@ public class Home_frag extends Fragment {
         adapter = new FirestoreRecyclerAdapter<Goods_Adapter, MyViewHolder>(firestoreRecyclerOptions) {
             @SuppressLint("DefaultLocale")
             @Override
-            protected void onBindViewHolder(MyViewHolder myViewHolder, int i, Goods_Adapter goods_adapter) {
+            protected void onBindViewHolder(@NotNull MyViewHolder myViewHolder, int i, Goods_Adapter goods_adapter) {
 
                 myViewHolder.name.setText(goods_adapter.getName());
                 myViewHolder.category.setText(goods_adapter.getCategory());
@@ -85,6 +86,7 @@ public class Home_frag extends Fragment {
             @NonNull
             @Override
             public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//                View view1 = LayoutInflater.from(getContext()).inflate(R.layout.single_item_template,parent,false);
                 View view1 = LayoutInflater.from(getContext()).inflate(R.layout.single_item_template,parent,false);
                 return new MyViewHolder(view1);
             }

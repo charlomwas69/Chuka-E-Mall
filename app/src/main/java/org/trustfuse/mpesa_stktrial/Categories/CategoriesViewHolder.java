@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.trustfuse.mpesa_stktrial.R;
+import org.trustfuse.mpesa_stktrial.Single_good;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -28,8 +29,9 @@ public class CategoriesViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 value = categoryy.getText().toString();
-//                Snackbar.make(itemView,categoryy.getText().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
-                itemView.getContext().startActivity(new Intent(itemView.getContext(), Single_Categories.class));
+                Intent i = new Intent().setClass(itemView.getContext(), Single_Categories.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                itemView.getContext().startActivity(i);
             }
         });
     }

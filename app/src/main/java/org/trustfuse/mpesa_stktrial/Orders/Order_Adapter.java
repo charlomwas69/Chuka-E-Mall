@@ -1,16 +1,17 @@
-package org.trustfuse.mpesa_stktrial;
+package org.trustfuse.mpesa_stktrial.Orders;
 
-public class Cart_Adapter {
-    private String Category,Name,Image,Price,Qty;
-    private  Cart_Adapter(){
+public class Order_Adapter {
+    private String Category,Image,Name,Price,Status;
+
+    private Order_Adapter(){
 
     }
-    private Cart_Adapter(String Category,String Name,String Image,String Price,String Qty){
+    private Order_Adapter(String Category, String Image,String Name,String Price, String Status){
         this.Category = Category;
         this.Image = Image;
         this.Name = Name;
         this.Price = Price;
-        this.Qty = Qty;
+        this.Status = Status;
     }
 
     public String getCategory() {
@@ -29,14 +30,6 @@ public class Cart_Adapter {
         Name = name;
     }
 
-    public String getImage() {
-        return Image;
-    }
-
-    public void setImage(String image) {
-        Image = image;
-    }
-
     public String getPrice() {
         return Price;
     }
@@ -45,11 +38,19 @@ public class Cart_Adapter {
         Price = price;
     }
 
-    public String getQty() {
-        return Qty;
+    public String getImage() {
+        return Image;
     }
 
-    public void setQty(String qty) {
-        Qty = qty;
+    public void setImage(String image) {
+        Image = image;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
     }
 }

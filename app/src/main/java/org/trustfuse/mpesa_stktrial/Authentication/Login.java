@@ -32,6 +32,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.trustfuse.mpesa_stktrial.Main_Menu;
 import org.trustfuse.mpesa_stktrial.R;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -211,29 +213,29 @@ public class Login extends AppCompatActivity {
                     finish();
 
                 }else {
-//                    DocumentReference documentReference = fstore.collection("Consumer").document();
-//                    Map<String, Object> consumer = new HashMap<>();
-////                    Toast.makeText(getApplicationContext(),"SUCCESFULLY ADDED",Toast.LENGTH_LONG);
-//                    consumer.put("Phone number",p_number);
-//
-//                    documentReference.set(consumer).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//
-//                            Intent intent1 = new Intent(getApplicationContext(),Consumer_sign_in.class);
-//                            startActivity(intent1);
-//                            progressbar.setVisibility(View.GONE);
-//
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(getApplicationContext(),"Registration failed" + e.toString(),Toast.LENGTH_LONG).show();
-//                        }
-//                    });
-                    Intent intent1 = new Intent(getApplicationContext(), Consumer_sign_in.class);
+                    DocumentReference documentReference = fstore.collection("Consumer").document();
+                    Map<String, Object> consumer = new HashMap<>();
+//                    Toast.makeText(getApplicationContext(),"SUCCESFULLY ADDED",Toast.LENGTH_LONG);
+                    consumer.put("Phone number",p_number);
+
+                    documentReference.set(consumer).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+
+                            Intent intent1 = new Intent(getApplicationContext(),Consumer_sign_in.class);
                             startActivity(intent1);
                             progressbar.setVisibility(View.GONE);
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(),"Registration failed" + e.toString(),Toast.LENGTH_LONG).show();
+                        }
+                    });
+//                    Intent intent1 = new Intent(getApplicationContext(), Consumer_sign_in.class);
+//                            startActivity(intent1);
+//                            progressbar.setVisibility(View.GONE);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {

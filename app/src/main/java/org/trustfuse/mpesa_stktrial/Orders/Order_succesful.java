@@ -1,4 +1,4 @@
-package org.trustfuse.mpesa_stktrial;
+package org.trustfuse.mpesa_stktrial.Orders;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -16,6 +16,8 @@ import org.trustfuse.mpesa_stktrial.Authentication.Login;
 import org.trustfuse.mpesa_stktrial.Fragments.Account_frag;
 import org.trustfuse.mpesa_stktrial.Fragments.Cart_frag;
 import org.trustfuse.mpesa_stktrial.Fragments.Home_frag;
+import org.trustfuse.mpesa_stktrial.Main_Menu;
+import org.trustfuse.mpesa_stktrial.R;
 
 public class Order_succesful extends AppCompatActivity {
 

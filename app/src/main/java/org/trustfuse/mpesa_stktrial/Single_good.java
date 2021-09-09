@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -16,14 +14,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -33,13 +29,9 @@ import com.labters.lottiealertdialoglibrary.DialogTypes;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 import com.squareup.picasso.Picasso;
 
-import org.trustfuse.mpesa_stktrial.Authentication.Login;
-import org.trustfuse.mpesa_stktrial.Categories.CategoriesViewHolder;
-import org.trustfuse.mpesa_stktrial.Fragments.Cart_frag;
-import org.trustfuse.mpesa_stktrial.Good_Owner.Good_owner_post;
+import org.trustfuse.mpesa_stktrial.Comments.Comments;
 import org.trustfuse.mpesa_stktrial.Goods.MyViewHolder;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,6 +45,11 @@ public class Single_good extends AppCompatActivity {
     ProgressBar progressBar;
     Button add_to_cart;
     public String the_uri;
+    public static String i_name;
+    public static String getI_name(){
+        return  i_name;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,10 +70,11 @@ public class Single_good extends AppCompatActivity {
 
         user.setText(firebaseAuth.getCurrentUser().getUid());
 
+
         add_to_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String cart_name = Name.getText().toString();
+                    String cart_name = Name.getText().toString().trim();
                     String cart_category = Category.getText().toString();
                     String cart_price = Price.getText().toString();
                     String qty = "1";
@@ -90,11 +88,19 @@ public class Single_good extends AppCompatActivity {
                     goods.put("Image",the_uri);
                     goods.put("Qty",qty);
                     goods.put("Paid","no");
-                    goods.put("Status","Pending");
+//                    goods.put("Status","Pending ⏳");
+                    goods.put("Status","Successful ✅");
+
                 cities.document(cart_name).set(goods).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(Single_good.this, "ADDDDDDDDED", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(Single_good.this, "ADDDDDDDDED", Toast.LENGTH_SHORT).show();
+                        LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(Single_good.this, DialogTypes.TYPE_SUCCESS)
+                                .setTitle("SUCCESS")
+                                .setDescription("Item added to cart")
+                                .build();
+                        alertDialog.setCancelable(true);
+                        alertDialog.show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -151,7 +157,11 @@ public class Single_good extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"This are the comments",Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),"This are the comments",Toast.LENGTH_LONG).show();
+                 i_name = Name.getText().toString();
+                Intent intent = new Intent(getApplicationContext(), Comments.class);
+                startActivity(intent);
+
             }
         });
     }

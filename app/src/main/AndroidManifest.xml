@@ -2,13 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="org.trustfuse.mpesa_stktrial">
-
-<!--    <service android:name=".MyFirebaseInstanceIdService" android:exported="true">-->
-<!--        <intent-filter>-->
-<!--            <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>-->
-<!--        </intent-filter>-->
-<!--    </service>-->
-
+    <!-- <service android:name=".MyFirebaseInstanceIdService" android:exported="true"> -->
+    <!-- <intent-filter> -->
+    <!-- <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/> -->
+    <!-- </intent-filter> -->
+    <!-- </service> -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -27,10 +25,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MpesaStkTrial">
-        <activity android:name=".Mpesa_Test"></activity>
-        <activity android:name=".Myorders" />
-        <activity android:name=".Order_succesful" />
-        <activity android:name=".Comments" />
+        <activity android:name=".Add_comment"></activity>
+        <activity android:name=".Mpesa_Test" />
+        <activity android:name=".Orders.Myorders" />
+        <activity android:name=".Orders.Order_succesful" />
+        <activity android:name=".Comments.Comments" />
         <activity android:name=".Single_good" />
         <activity android:name=".Categories.Single_Categories" />
         <activity android:name=".Good_Owner.Good_owner_post" />

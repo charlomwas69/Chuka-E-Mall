@@ -30,7 +30,7 @@
                     android:layout_weight="2"
                     android:textColor="#1C1F32"
                     android:gravity="center"
-                    android:text="Click Icon below to select image"
+                    android:text="Click below to select image 👇🏼"
                     android:singleLine="true"
                     android:textStyle="bold"
                     android:visibility="visible" />
@@ -41,7 +41,7 @@
                 android:layout_height="150dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/adder"
+                android:src="@drawable/add_image"
                 app:civ_border_color="#FFFFFF"
                 app:civ_border_width="2dp" />
         </androidx.cardview.widget.CardView>
@@ -222,7 +222,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:gravity="top|left"
-                        android:inputType="textEmailAddress|textMultiLine"
+                        android:inputType="textMultiLine"
                         android:lines="10"
                         android:minLines="5"
                         android:scrollbars="vertical"

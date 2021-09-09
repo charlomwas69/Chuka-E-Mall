@@ -233,7 +233,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/amarante"
-                        android:text="Location"
+                        android:text="Shipping area"
                         android:textColor="#1C1F32" />
 
                     <TextView

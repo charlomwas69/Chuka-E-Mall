@@ -1,4 +1,4 @@
-package org.trustfuse.mpesa_stktrial;
+package org.trustfuse.mpesa_stktrial.Cart;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +28,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.labters.lottiealertdialoglibrary.DialogTypes;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
+
+import org.trustfuse.mpesa_stktrial.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -63,13 +63,12 @@ public class Categories_frag extends Fragment {
                 categoriesViewHolder.categoryy.setText(categories_adapter.getCategory());
                 Glide.with(getContext()).load(categories_adapter.getImage()).into(categoriesViewHolder.circleImageVieww);
                 progressBarr.setVisibility(View.GONE);
+
             }
             @NonNull
             @Override
             public CategoriesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view1 = LayoutInflater.from(getContext()).inflate(R.layout.single_category_template,parent,false);
-//                progressBarr = view1.findViewById(R.id.prog_pic);
-//                progressBarr.setVisibility(view1.GONE);
                 return new CategoriesViewHolder(view1);
             }
         };

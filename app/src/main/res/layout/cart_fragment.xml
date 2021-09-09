@@ -38,7 +38,6 @@
 
                 <View android:id="@+id/rectangle_4"
                     android:background="@drawable/rectangle_4_shape"
-                    android:layout_marginLeft="0dp"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="0dp"
                     android:layout_width="165dp"

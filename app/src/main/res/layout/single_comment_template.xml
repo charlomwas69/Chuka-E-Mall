@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginVertical="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout android:id="@+id/review"
@@ -14,39 +15,41 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/lorem_ipsum_dolor_sit_amet__consectetur_adipiscing_elit__sed_do_eiusmod_tempor_incididunt"
-            android:layout_width="194dp"
-            android:layout_height="43dp"
-            android:layout_marginLeft="80dp"
+            android:id="@+id/commentsy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="80dp"
             android:layout_marginTop="39dp"
             android:fontFamily="@font/amarante"
+            android:scrollbars="vertical"
             android:text="@string/lorem_ipsum_dolor_sit_amet__consectetur_adipiscing_elit__sed_do_eiusmod_tempor_incididunt_string"
             android:textColor="@color/lorem_ipsum_dolor_sit_amet__consectetur_adipiscing_elit__sed_do_eiusmod_tempor_incididunt_color"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/jane_doe"
-            android:layout_width="66dp"
-            android:layout_height="23dp"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="15dp"
+            android:id="@+id/nameeey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/aclonica"
-            android:text="Jane doe string"
+            android:text="Jane doe "
             android:textColor="@color/lorem_ipsum_dolor_sit_amet__consectetur_adipiscing_elit__sed_do_eiusmod_tempor_incididunt_color"
-            android:textSize="15sp" />
+            android:textSize="12sp"  />
 
         <TextView
-            android:id="@+id/_10_oct__2018"
-            android:layout_width="96dp"
-            android:layout_height="22dp"
+            android:id="@+id/datey"
+            android:layout_width="166dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|end"
-            android:layout_marginStart="252dp"
+            android:layout_marginStart="212dp"
             android:layout_marginTop="0dp"
+            android:layout_marginEnd="10dp"
             android:alpha="0.5"
             android:fontFamily="@font/aclonica"
-            android:gravity="end"
             android:text="10_oct_2018"
-            android:textColor="@color/lorem_ipsum_dolor_sit_amet__consectetur_adipiscing_elit__sed_do_eiusmod_tempor_incididunt_color"
+            android:textColor="#1C1F32"
             android:textSize="12sp" />
 
 
@@ -74,7 +77,7 @@
                 android:layout_marginTop="14dp"
                 android:fontFamily="@font/aclonica"
                 android:gravity="center"
-                android:text="jd string"
+                android:text="jd "
                 android:textColor="@color/jd_color"
                 android:textSize="22sp" />
 

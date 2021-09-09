@@ -1,22 +1,16 @@
 package org.trustfuse.mpesa_stktrial.Fragments;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.math.MathUtils;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,39 +29,25 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.common.collect.Lists;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Transaction;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.labters.lottiealertdialoglibrary.DialogTypes;
-import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 
-import org.trustfuse.mpesa_stktrial.Authentication.Login;
-import org.trustfuse.mpesa_stktrial.CartViewHolder;
-import org.trustfuse.mpesa_stktrial.Cart_Adapter;
-import org.trustfuse.mpesa_stktrial.MainActivity;
-import org.trustfuse.mpesa_stktrial.Order_succesful;
+import org.trustfuse.mpesa_stktrial.Cart.CartViewHolder;
+import org.trustfuse.mpesa_stktrial.Cart.Cart_Adapter;
 import org.trustfuse.mpesa_stktrial.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import static android.content.ContentValues.TAG;
 
 public class Cart_frag extends Fragment {
 
@@ -166,6 +146,7 @@ public class Cart_frag extends Fragment {
                             }
                         }
                 );
+                sum_display.setText("0");
             }
         });
 
