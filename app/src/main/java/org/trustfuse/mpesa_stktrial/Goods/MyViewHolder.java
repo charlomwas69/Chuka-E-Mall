@@ -2,6 +2,7 @@ package org.trustfuse.mpesa_stktrial.Goods;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ import org.trustfuse.mpesa_stktrial.Single_good;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MyViewHolder extends RecyclerView.ViewHolder {
+public class MyViewHolder extends RecyclerView.ViewHolder{
     public TextView category,name,price;
     public CircleImageView circleImageView;
     public ProgressBar progressBar;

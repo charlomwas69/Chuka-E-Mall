@@ -19,7 +19,7 @@
             android:id="@+id/toolbar0"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#302145"
+            android:background="#42392B"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -275,8 +275,7 @@
                     android:text="MY ORDERS"
                     android:gravity="center"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/edit_text_design"
-                    android:drawableLeft="@drawable/ic_baseline_edit_24"/>
+                    android:background="@drawable/edit_text_design" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
