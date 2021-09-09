@@ -1,6 +1,7 @@
 package org.trustfuse.mpesa_stktrial.Authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +35,7 @@ public class Consumer_sign_in extends AppCompatActivity {
     TextView p_no;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
+    Toolbar toolbar;
 //    String Userid;
 
     @Override
@@ -52,6 +54,10 @@ public class Consumer_sign_in extends AppCompatActivity {
         p_no = findViewById(R.id.p_no);
 //        Userid = FirebaseAuth.getInstance().getUid();
         p_no.setText(Login.phoneNum);
+
+        toolbar = findViewById(R.id.toolbar_cons_sign_in);
+        toolbar.setTitle("Consumer Sign In");
+        toolbar.setEnabled(true);
 
 
 

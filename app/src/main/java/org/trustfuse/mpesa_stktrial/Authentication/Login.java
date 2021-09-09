@@ -2,6 +2,7 @@ package org.trustfuse.mpesa_stktrial.Authentication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ public class Login extends AppCompatActivity {
     String verificationId;
     PhoneAuthProvider.ForceResendingToken token;
     Boolean verificationInProgress = false;
+    Toolbar toolbar;
 //    public static String cary_number;
     String p_number;
     public static String phoneNum;
@@ -65,6 +67,9 @@ public class Login extends AppCompatActivity {
         progressbar = findViewById(R.id.progressbar);
         firebaseAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
+        toolbar = findViewById(R.id.toolbar_login);
+        toolbar.setTitle("Login");
+        toolbar.setEnabled(true);
 
 //        Userid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 

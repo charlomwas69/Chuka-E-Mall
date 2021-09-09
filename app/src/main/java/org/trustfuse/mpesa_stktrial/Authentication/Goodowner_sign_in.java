@@ -1,6 +1,7 @@
 package org.trustfuse.mpesa_stktrial.Authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +33,7 @@ public class Goodowner_sign_in extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
     TextView number;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,9 @@ public class Goodowner_sign_in extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         number = findViewById(R.id.phone_number);
+        toolbar =findViewById(R.id.toolbar_cons_sign_in);
+        toolbar.setTitle("Account");
+        toolbar.setEnabled(true);
 
         number.setText(Good_owner_login.phoneNum);
 

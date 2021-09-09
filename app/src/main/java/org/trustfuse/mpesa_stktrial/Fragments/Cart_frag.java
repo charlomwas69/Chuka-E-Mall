@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -63,6 +64,7 @@ public class Cart_frag extends Fragment {
     Query query;
     String p_number;
     String use_name;
+    Toolbar toolbar;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -79,6 +81,9 @@ public class Cart_frag extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         firebaseFirestore = FirebaseFirestore.getInstance();
+        toolbar = view.findViewById(R.id.toolbar_cart);
+        toolbar.setTitle("Cart");
+        toolbar.setEnabled(true);
 
         DocumentReference documentReferencee = firebaseFirestore.collection("Consumer").document(firebaseAuth.getCurrentUser().getUid());
         documentReferencee.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {

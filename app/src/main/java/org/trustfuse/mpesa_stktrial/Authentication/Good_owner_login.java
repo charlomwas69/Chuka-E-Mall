@@ -2,6 +2,7 @@ package org.trustfuse.mpesa_stktrial.Authentication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ public class Good_owner_login extends AppCompatActivity {
     Boolean verificationInProgress = false;
     String Userid;
     String p_number;
+    Toolbar toolbar;
     public static String phoneNum;
 
     @Override
@@ -61,6 +63,10 @@ public class Good_owner_login extends AppCompatActivity {
         progressbar = findViewById(R.id.progressbar_good_owner);
         firebaseAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
+
+        toolbar = findViewById(R.id.toolbar_vendor_login);
+        toolbar.setTitle("Account");
+        toolbar.setEnabled(true);
 
         String resend = "OTP not received? Send Again.";
         SpannableString spannableString = new SpannableString(resend);

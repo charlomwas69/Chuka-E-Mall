@@ -1,117 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingVertical="10dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/single_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="5dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <View android:id="@+id/rectangle_2230_ek6"
+            android:background="@drawable/rectangle_2230_ek6_shape"
+            android:layout_marginTop="20dp"
+            android:layout_width="183dp"
+            android:layout_height="252dp"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:paddingVertical="10dp"
-            android:padding="10dp"
-            android:layout_height="wrap_content">
+        <TextView android:id="@+id/pri"
+            android:fontFamily="@font/amarante"
+            android:textSize="27sp"
+            android:textColor="@color/teal_700"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="227dp"
+            android:layout_width="129dp"
+            android:layout_height="38dp"
+            android:text="Ksh 2000"
+            />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView3"
-                android:layout_width="match_parent"
+        <TextView android:id="@+id/cad_ek6"
+            android:visibility="gone"
+            android:fontFamily="Poppins"
+            android:textSize="11sp"
+            android:textColor="@color/teal_200"
+            android:layout_marginLeft="293dp"
+            android:layout_marginTop="259dp"
+            android:layout_width="29dp"
+            android:layout_height="18dp"
+            android:text="Yoh"
+            />
+
+        <TextView android:id="@+id/item_name"
+            android:fontFamily="@font/amarante"
+            android:layout_gravity="center_vertical|end"
+            android:textSize="11sp"
+            android:textColor="@color/teal_200"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="203dp"
+            android:layout_width="79dp"
+            android:layout_height="18dp"
+            android:text="Trial"
+            />
+
+    <TextView android:id="@+id/category"
+            android:fontFamily="@font/amarante"
+            android:textSize="15sp"
+            android:textColor="@color/teal_700"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="175dp"
+            android:layout_width="90dp"
+            android:layout_height="24dp"
+            android:text="Rose"
+            />
+        <View android:id="@+id/ellipse_39_ek6"
+            android:background="@drawable/ellipse_39_ek6_shape"
+            android:layout_marginLeft="89dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="0dp"
+            android:layout_width="41dp"
+            android:layout_height="41dp" />
+
+
+        <RelativeLayout android:id="@+id/shopping_cart__1__ek6"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="63dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+
+            <RelativeLayout android:id="@+id/shopping_cart_ek6"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                >
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/item_image"
-                    android:layout_width="150dp"
-                    android:layout_height="140dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/logo_b"
-                    app:civ_border_width="2dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.453"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/wp7progressBar" />
+                <ImageView android:id="@+id/path_2083_ek6"
+                    android:src="@drawable/path_2083"
+                    android:contentDescription="path_2083_ek6"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_width="15.58056640625dp"
+                    android:layout_height="15.58056640625dp"
+                    tools:ignore="HardcodedText" />
 
-                <!--                <ProgressBar-->
-                <!--                    android:id="@+id/prog_pic"-->
-                <!--                    style="?android:attr/progressBarStyle"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_alignParentTop="true"-->
-                <!--                    android:layout_height="wrap_content" />-->
-            </androidx.cardview.widget.CardView>
+            </RelativeLayout>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/single_itemmm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:layout_marginTop="32dp"
-                android:paddingBottom="10dp"
-                app:cardElevation="8dp"
-                app:cardCornerRadius="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView3">
+        </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/category"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:fontFamily="@font/aclonica"
-                    android:text="Category" />
-
-                <TextView
-                    android:id="@+id/item_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:fontFamily="@font/aclonica"
-                    android:text="Item Name" />
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginTop="40dp"
-                    android:fontFamily="@font/aclonica"
-                    android:text="Ksh"
-                    app:layout_constraintTop_toBottomOf="@+id/item_name" />
-                <TextView
-                    android:id="@+id/price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/aclonica"
-                    android:paddingLeft="40dp"
-                    android:text="Price"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView11"
-                    app:layout_constraintTop_toBottomOf="@+id/item_name" />
-            </androidx.cardview.widget.CardView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView android:id="@+id/item_image"
+            android:src="@drawable/nca_logo"
+            android:contentDescription="mask_group_2_ek1"
+            android:layout_marginLeft="14dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="36dp"
+            android:layout_width="135dp"
+            android:layout_height="133dp" />
+</RelativeLayout>

@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -29,6 +31,8 @@ import org.trustfuse.mpesa_stktrial.Goods.Goods_Adapter;
 import org.trustfuse.mpesa_stktrial.Goods.MyViewHolder;
 import org.trustfuse.mpesa_stktrial.R;
 
+import java.util.ArrayList;
+
 import static java.lang.String.format;
 
 public class Home_frag extends Fragment {
@@ -40,6 +44,7 @@ public class Home_frag extends Fragment {
     FirestoreRecyclerAdapter<Goods_Adapter, MyViewHolder> adapter;
     ProgressBar progressBarr;
     public static String goodname;
+    ArrayList<Integer> list;
     public static String getGoodname() {
         return goodname;
     }
@@ -47,16 +52,14 @@ public class Home_frag extends Fragment {
     public static String getValue() {
         return value;
     }
-
+    Toolbar toolbar;
+    SearchView searchView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        return inflater.inflate(R.layout.home_fragment,container,false);
-//        View view = {inflater.inflate(R.layout.home_fragment, container, false)};
         View view = inflater.inflate(R.layout.home_fragment,container,false);
 
-//        progressBarrr = view.findViewById(R.id.wp7progressBar);
         progressBarr = view.findViewById(R.id.main_menu_progress);
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -64,9 +67,25 @@ public class Home_frag extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         firebaseFirestore = FirebaseFirestore.getInstance();
+        toolbar = view.findViewById(R.id.toolbar_home_frag);
+        toolbar.setTitle("Home");
+        toolbar.setEnabled(true);
+        searchView = view.findViewById(R.id.search_item);
 //        view.findViewById(R.id.progress_bar).setVisibility(View.GONE);
 
         Query query = firebaseFirestore.collection("Goods");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String t) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String t) {
+                tafta(t);
+                return true;
+            }
+        });
 
         FirestoreRecyclerOptions<Goods_Adapter> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<Goods_Adapter>()
                 .setQuery(query,Goods_Adapter.class)
@@ -86,7 +105,6 @@ public class Home_frag extends Fragment {
             @NonNull
             @Override
             public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                View view1 = LayoutInflater.from(getContext()).inflate(R.layout.single_item_template,parent,false);
                 View view1 = LayoutInflater.from(getContext()).inflate(R.layout.single_item_template,parent,false);
                 return new MyViewHolder(view1);
             }
@@ -98,6 +116,18 @@ public class Home_frag extends Fragment {
 
         return view;
     }
+
+    private void tafta(String feedback) {
+//        ArrayList<Goods_Adapter> feedme = new ArrayList<>();
+//        for ( object : list){
+//            if (object.getName().toLowerCase().contains(feedback.toLowerCase()) || object.getLocation().contains(feedback.toLowerCase())){
+//                feedme.add(object);
+//            }
+//        }
+//        myMechanicsListAdapter= new MyMechanicsListAdapter(driver_main_page.this,feedme);
+//        listView.setAdapter(myMechanicsListAdapter);
+    }
+
 
     @Override
     public void onStart() {

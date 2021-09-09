@@ -2,6 +2,7 @@ package org.trustfuse.mpesa_stktrial.Categories;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,6 +34,8 @@ public class Single_Categories extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     StorageReference storageReference;
+
+    Toolbar toolbar;
 //    TextView fetch_category;
     FirestoreRecyclerAdapter<Goods_Adapter, MyViewHolder> adapter;
     @Override
@@ -44,12 +47,12 @@ public class Single_Categories extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference();
         recyclerView.setHasFixedSize(true);
         firebaseFirestore = FirebaseFirestore.getInstance();
-//        fetch_category = findViewById(R.id.fetch_category);
 
-//        fetch_category.setText(CategoriesViewHolder.getValue());
-//        view.findViewById(R.id.progress_bar).setVisibility(View.GONE);
-//        String category = fetch_category.getText().toString();
-//        Toast.makeText(getApplicationContext(),category,Toast.LENGTH_LONG).show();
+        toolbar = findViewById(R.id.toolbar_single_categories);
+        toolbar.setTitle("Categories");
+        toolbar.setEnabled(true);
+
+
         Query query = firebaseFirestore.collection("Goods")
                 .whereEqualTo("Category", CategoriesViewHolder.getValue());
 

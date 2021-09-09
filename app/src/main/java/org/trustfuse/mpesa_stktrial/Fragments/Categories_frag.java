@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,6 +36,7 @@ public class Categories_frag extends Fragment {
     StorageReference storageReference;
     FirestoreRecyclerAdapter<Categories_Adapter, CategoriesViewHolder> adapter;
     ProgressBar progressBarr;
+    Toolbar toolbar;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,7 +50,9 @@ public class Categories_frag extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         firebaseFirestore = FirebaseFirestore.getInstance();
-//        view.findViewById(R.id.progress_bar).setVisibility(View.GONE);
+        toolbar = view.findViewById(R.id.toolbar_categorry);
+        toolbar.setTitle("Categories");
+        toolbar.setEnabled(true);
 
         Query query = firebaseFirestore.collection("Categories");
 

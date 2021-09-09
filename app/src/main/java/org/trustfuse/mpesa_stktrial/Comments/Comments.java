@@ -2,6 +2,7 @@ package org.trustfuse.mpesa_stktrial.Comments;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,6 +43,7 @@ public class Comments extends AppCompatActivity {
         return value;
     }
     public String namey;
+    Toolbar toolbar;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,9 @@ public class Comments extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         firebaseFirestore = FirebaseFirestore.getInstance();
         textView = findViewById(R.id.textView2);
+        toolbar = findViewById(R.id.toolbar_comments);
+        toolbar.setTitle("COMMENTS");
+        toolbar.setEnabled(true);
 
 //        Toast.makeText(getApplicationContext(), Single_good.getI_name(), Toast.LENGTH_LONG).show();
         textView.setText(Single_good.getI_name());

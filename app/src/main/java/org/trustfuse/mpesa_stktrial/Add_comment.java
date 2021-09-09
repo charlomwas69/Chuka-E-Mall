@@ -2,6 +2,7 @@ package org.trustfuse.mpesa_stktrial;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -34,6 +35,7 @@ public class Add_comment extends AppCompatActivity {
     View post;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firestore;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,9 @@ public class Add_comment extends AppCompatActivity {
         post = findViewById(R.id.post_comment);
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
+        toolbar = findViewById(R.id.toolbar_add_comment);
+        toolbar.setTitle("Add comment");
+        toolbar.setEnabled(true);
 
         DocumentReference documentReference = firestore.collection("Consumer")
                 .document(firebaseAuth.getCurrentUser().getUid());

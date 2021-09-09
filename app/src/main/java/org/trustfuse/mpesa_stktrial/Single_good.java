@@ -2,6 +2,7 @@ package org.trustfuse.mpesa_stktrial;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -49,6 +50,7 @@ public class Single_good extends AppCompatActivity {
     public static String getI_name(){
         return  i_name;
     }
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,9 @@ public class Single_good extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
+        toolbar = findViewById(R.id.toolbar_single_good);
+        toolbar.setTitle("New Arrival");
+        toolbar.setEnabled(true);
 
         user.setText(firebaseAuth.getCurrentUser().getUid());
 

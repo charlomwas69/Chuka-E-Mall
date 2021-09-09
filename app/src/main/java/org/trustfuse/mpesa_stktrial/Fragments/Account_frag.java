@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -58,6 +59,7 @@ public class Account_frag extends Fragment {
     StorageReference storageReference;
     FirebaseAuth firebaseAuth;
     String currentPhotoPath;
+    Toolbar toolbar;
     private static final int CAM_PERM = 100 ;
     private static final int CAM_REQ_CODE = 101;
     public static final int GALLERY_RE_CODE = 103;
@@ -77,6 +79,9 @@ public class Account_frag extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
+        toolbar = root.findViewById(R.id.toolbar0);
+        toolbar.setTitle("Account");
+        toolbar.setEnabled(true);
 
         LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(getContext(), DialogTypes.TYPE_LOADING)
                 .setTitle("LOADING DATA")

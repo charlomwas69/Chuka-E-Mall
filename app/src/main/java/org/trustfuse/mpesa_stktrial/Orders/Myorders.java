@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,6 +41,7 @@ public class Myorders extends AppCompatActivity {
     public static String getValue() {
         return value;
     }
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,10 @@ public class Myorders extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         firebaseFirestore = FirebaseFirestore.getInstance();
+
+        toolbar = findViewById(R.id.toolbar_my_orders);
+        toolbar.setTitle("Order History");
+        toolbar.setEnabled(true);
 //        view.findViewById(R.id.progress_bar).setVisibility(View.GONE);
 
         Query query = firebaseFirestore.collection("Cart")

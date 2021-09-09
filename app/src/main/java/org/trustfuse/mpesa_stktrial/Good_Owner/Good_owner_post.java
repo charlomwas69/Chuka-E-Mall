@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -57,6 +58,7 @@ public class Good_owner_post extends AppCompatActivity {
     CircleImageView circleImageView;
     Uri contentUri;
     CardView cardView;
+    Toolbar toolbar;
 
     private static final int CAM_PERM = 100 ;
     private static final int CAM_REQ_CODE = 101;
@@ -77,6 +79,10 @@ public class Good_owner_post extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference();
         firestore = FirebaseFirestore.getInstance();
         cardView = findViewById(R.id.card_view2);
+
+        toolbar = findViewById(R.id.toolbar_vendor_post);
+        toolbar.setTitle("Post Product");
+        toolbar.setEnabled(true);
 
 
 

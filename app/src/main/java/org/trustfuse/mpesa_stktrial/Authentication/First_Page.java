@@ -1,6 +1,7 @@
 package org.trustfuse.mpesa_stktrial.Authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ public class First_Page extends AppCompatActivity {
 
     Button consumer,good_owner;
     FirebaseAuth firebaseAuth;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,9 @@ public class First_Page extends AppCompatActivity {
         consumer = findViewById(R.id.btn_consumer);
         good_owner = findViewById(R.id.btn_goodowner);
         firebaseAuth= FirebaseAuth.getInstance();
+        toolbar = findViewById(R.id.toolbar00);
+        toolbar.setTitle("Sign In");
+        toolbar.setEnabled(true);
 
         consumer.setOnClickListener(new View.OnClickListener() {
             @Override
