@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class Goodowner_sign_in extends AppCompatActivity {
 
-    EditText name,location;
+    EditText name,location,store;
     Button sign_In;
     ProgressBar progressBarr;
     FirebaseFirestore firebaseFirestore;
@@ -46,6 +46,7 @@ public class Goodowner_sign_in extends AppCompatActivity {
         progressBarr = findViewById(R.id.goodowner_progressBar);
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
+        store = findViewById(R.id.good_owner_store);
         number = findViewById(R.id.phone_number);
         toolbar =findViewById(R.id.toolbar_cons_sign_in);
         toolbar.setTitle("Account");
@@ -78,9 +79,13 @@ public class Goodowner_sign_in extends AppCompatActivity {
         String g_name = name.getText().toString().trim();
         String g_location = location.getText().toString().trim();
         String p_number = number.getText().toString().trim();
+        String store_name = store.getText().toString();
 
         if (TextUtils.isEmpty(g_name)){
             name.setError("Name cant be empty");
+            if (TextUtils.isEmpty(store_name)){
+                store.setError("Store name cant be empty");
+            }
         }
         if (TextUtils.isEmpty(g_location)){
             location.setError("Location cant be empty");
@@ -89,9 +94,10 @@ public class Goodowner_sign_in extends AppCompatActivity {
         progressBarr.setVisibility(View.VISIBLE);
         //add data
         Map<String , Object> dataa = new HashMap<>();
-        dataa.put("Consumer name",g_name);
-        dataa.put("Good owner location",g_location);
-        dataa.put("Good owner phone number",p_number);
+        dataa.put("Vendor name",g_name);
+        dataa.put("Vendor location",g_location);
+        dataa.put("Vendor phone number",p_number);
+        dataa.put("Vendor store name",store_name);
         firebaseFirestore.collection("Good owner").document(firebaseAuth.getCurrentUser().getUid())
                 .set(dataa, SetOptions.merge());
         Intent intent = new Intent(getApplicationContext(), Good_owner_post.class);

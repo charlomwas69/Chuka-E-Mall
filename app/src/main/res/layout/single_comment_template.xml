@@ -49,7 +49,7 @@
             android:alpha="0.5"
             android:fontFamily="@font/aclonica"
             android:text="10_oct_2018"
-            android:textColor="#1C1F32"
+            android:textColor="@color/lorem_ipsum_dolor_sit_amet__consectetur_adipiscing_elit__sed_do_eiusmod_tempor_incididunt_color"
             android:textSize="12sp" />
 
 

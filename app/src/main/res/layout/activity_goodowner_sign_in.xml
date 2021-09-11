@@ -74,29 +74,46 @@
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <EditText
-            android:id="@+id/good_owner_location"
-            android:layout_width="0dp"
+            android:id="@+id/good_owner_store"
+            android:layout_width="379dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:autofillHints=""
             android:background="@drawable/edit_text_design"
             android:ems="10"
-            android:hint="Location"
+            android:hint="Store Name"
+            android:inputType="textPersonName"
+            android:padding="13dp"
+            android:textColor="#F8131313"
+            android:textColorHint="#F8131313"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/good_owner_name"
+            app:layout_constraintTop_toBottomOf="@+id/good_owner_name" />
+
+        <EditText
+            android:id="@+id/good_owner_location"
+            android:layout_width="379dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_design"
+            android:ems="10"
+            android:hint="Location i.e store location"
             android:inputType="text"
             android:padding="13dp"
             android:textColor="#F8131313"
             android:textColorHint="#F8131313"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/good_owner_name"
-            app:layout_constraintTop_toBottomOf="@+id/good_owner_name" />
+            app:layout_constraintStart_toStartOf="@+id/good_owner_store"
+            app:layout_constraintTop_toBottomOf="@+id/good_owner_store" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="300dp"
             android:layout_height="120dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="90dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"

@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.trustfuse.mpesa_stktrial.R;
@@ -19,13 +20,16 @@ public class CategoriesViewHolder extends RecyclerView.ViewHolder {
     public static String getValue() {
         return value;
     }
+    public CardView cardView;
 
     public CategoriesViewHolder(@NonNull View itemView) {
         super(itemView);
         categoryy = itemView.findViewById(R.id.categoryy);
         circleImageVieww = itemView.findViewById(R.id.category_image);
-        circleImageVieww.setFocusable(false);
-        circleImageVieww.setOnClickListener(new View.OnClickListener() {
+        circleImageVieww.setFocusable(true);
+        cardView = itemView.findViewById(R.id.single_item_);
+
+        cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 value = categoryy.getText().toString();
@@ -34,5 +38,11 @@ public class CategoriesViewHolder extends RecyclerView.ViewHolder {
                 itemView.getContext().startActivity(i);
             }
         });
+//        circleImageVieww.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 }

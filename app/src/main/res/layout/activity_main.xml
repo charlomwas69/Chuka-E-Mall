@@ -18,6 +18,7 @@
         app:srcCompat="@drawable/mpesa_logo" />
 
     <TextView
+        android:id="@+id/yohyoh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"

@@ -51,7 +51,10 @@ public class Login extends AppCompatActivity {
     Boolean verificationInProgress = false;
     Toolbar toolbar;
 //    public static String cary_number;
-    String p_number;
+    public static String p_number;
+    public static String getP_number(){
+        return p_number;
+    }
     public static String phoneNum;
 
 
@@ -68,8 +71,9 @@ public class Login extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
         toolbar = findViewById(R.id.toolbar_login);
-        toolbar.setTitle("Login");
-        toolbar.setEnabled(true);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Login");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 //        Userid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 

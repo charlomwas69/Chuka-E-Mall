@@ -1,14 +1,18 @@
 package org.trustfuse.mpesa_stktrial.Fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -26,6 +30,7 @@ import com.google.firebase.storage.StorageReference;
 
 import org.trustfuse.mpesa_stktrial.Categories.CategoriesViewHolder;
 import org.trustfuse.mpesa_stktrial.Categories.Categories_Adapter;
+import org.trustfuse.mpesa_stktrial.Main_Menu;
 import org.trustfuse.mpesa_stktrial.R;
 
 public class Categories_frag extends Fragment {
@@ -51,8 +56,11 @@ public class Categories_frag extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         firebaseFirestore = FirebaseFirestore.getInstance();
         toolbar = view.findViewById(R.id.toolbar_categorry);
-        toolbar.setTitle("Categories");
-        toolbar.setEnabled(true);
+        setHasOptionsMenu(true);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.setSupportActionBar(toolbar);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        activity.getSupportActionBar().setTitle("Categories");
 
         Query query = firebaseFirestore.collection("Categories");
 
@@ -92,5 +100,38 @@ public class Categories_frag extends Fragment {
     public void onStop() {
         adapter.stopListening();
         super.onStop();
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent i = new Intent().setClass(getContext(), Main_Menu.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                getContext().startActivity(i);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(getView() == null){
+            return;
+        }
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    // handle back button's click listener
+
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -27,6 +29,7 @@ import org.trustfuse.mpesa_stktrial.Categories.CategoriesViewHolder;
 import org.trustfuse.mpesa_stktrial.Goods.Goods_Adapter;
 import org.trustfuse.mpesa_stktrial.Goods.MyViewHolder;
 import org.trustfuse.mpesa_stktrial.R;
+import org.trustfuse.mpesa_stktrial.Single_good;
 
 public class Single_Categories extends AppCompatActivity {
 
@@ -49,8 +52,11 @@ public class Single_Categories extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         toolbar = findViewById(R.id.toolbar_single_categories);
-        toolbar.setTitle("Categories");
-        toolbar.setEnabled(true);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Chuka E-Mall");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        toolbar.setTitle("Categories");
+//        toolbar.setEnabled(true);
 
 
         Query query = firebaseFirestore.collection("Goods")
@@ -68,6 +74,16 @@ public class Single_Categories extends AppCompatActivity {
                 myViewHolder.category.setText(goods_adapter.getCategory());
                 myViewHolder.price.setText(goods_adapter.getPrice());
                 Glide.with(getApplicationContext()).load(goods_adapter.getImage_uri()).into(myViewHolder.circleImageView);
+
+//                myViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+////                        value = name.getText().toString();
+//                Intent i = new Intent().setClass(getApplicationContext(), Single_good.class);
+//                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+//                getApplicationContext().startActivity(i);
+//                    }
+//                });
             }
             @NonNull
             @Override
@@ -94,5 +110,14 @@ public class Single_Categories extends AppCompatActivity {
     public void onStop() {
         adapter.stopListening();
         super.onStop();
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

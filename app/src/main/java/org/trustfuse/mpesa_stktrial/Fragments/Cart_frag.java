@@ -1,9 +1,11 @@
 package org.trustfuse.mpesa_stktrial.Fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -31,6 +34,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -40,9 +44,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.trustfuse.mpesa_stktrial.Authentication.First_Page;
+import org.trustfuse.mpesa_stktrial.Authentication.Login;
 import org.trustfuse.mpesa_stktrial.Cart.CartViewHolder;
 import org.trustfuse.mpesa_stktrial.Cart.Cart_Adapter;
+import org.trustfuse.mpesa_stktrial.Categories.Single_Categories;
+import org.trustfuse.mpesa_stktrial.Main_Menu;
 import org.trustfuse.mpesa_stktrial.R;
+import org.trustfuse.mpesa_stktrial.Single_good;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,9 +71,11 @@ public class Cart_frag extends Fragment {
     View next;
     Daraja daraja;
     Query query;
-    String p_number;
+//    String p_number = "0704661895";
+    String p_number = "0797627661";
     String use_name;
     Toolbar toolbar;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -82,24 +93,14 @@ public class Cart_frag extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         firebaseFirestore = FirebaseFirestore.getInstance();
         toolbar = view.findViewById(R.id.toolbar_cart);
-        toolbar.setTitle("Cart");
-        toolbar.setEnabled(true);
+        setHasOptionsMenu(true);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.setSupportActionBar(toolbar);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        activity.getSupportActionBar().setTitle("My Cart");
+//        p_number = Login.getP_number().substring(1);
+//        Toast.makeText(getContext(), p_number, Toast.LENGTH_LONG).show();
 
-        DocumentReference documentReferencee = firebaseFirestore.collection("Consumer").document(firebaseAuth.getCurrentUser().getUid());
-        documentReferencee.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                 p_number = Objects.requireNonNull(documentSnapshot.getString("Phone Number")).substring(1);
-//                freeshippin.setText(p_number);
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "Failed to fetch data" + e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
         //start
         //Init Daraja
@@ -120,40 +121,68 @@ public class Cart_frag extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), Order_succesful.class);
-//                startActivity(intent);
-                //TODO :: REPLACE WITH YOUR OWN CREDENTIALS  :: THIS IS SANDBOX DEMO
-                LNMExpress lnmExpress = new LNMExpress(
-                        "174379",
-                        "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919",  //https://developer.safaricom.co.ke/test_credentials
-                        TransactionType.CustomerBuyGoodsOnline, // TransactionType.CustomerPayBillOnline  <- Apply any of these two
-                        sum_display.getText().toString(),
-                        "254708374149",
-                        "174379",
-                        p_number,
-                        "http://mycallbackurl.com/checkout.php",
-                        "001ABC",
-                        "Goods Payment"
-                );
+                if (user != null) {
+//                    DocumentReference documentReferencee = firebaseFirestore.collection("Consumer").document(firebaseAuth.getCurrentUser().getUid());
+//                    documentReferencee.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                        @Override
+//                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+//
+////                            p_number = Objects.requireNonNull(documentSnapshot.getString("Phone Number")).substring(1);
+//                             p_number = documentSnapshot.getString("Phone Number");
+//                            freeshippin.setText(p_number);
+//
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(getContext(), "Failed to fetch data" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+                    // User is signed in
+                    Toast.makeText(getContext(), "LOGGED IN", Toast.LENGTH_LONG).show();
+                    //TODO :: REPLACE WITH YOUR OWN CREDENTIALS  :: THIS IS SANDBOX DEMO
+                    LNMExpress lnmExpress = new LNMExpress(
+                            "174379",
+                            "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919",  //https://developer.safaricom.co.ke/test_credentials
+                            TransactionType.CustomerBuyGoodsOnline, // TransactionType.CustomerPayBillOnline  <- Apply any of these two
+                            sum_display.getText().toString(),
+                            "254708374149",
+                            "174379",
+                            p_number,
+                            "http://mycallbackurl.com/checkout.php",
+                            "001ABC",
+                            "Goods Payment"
+                    );
+//                    This is the
+                    daraja.requestMPESAExpress(lnmExpress,
+                            new DarajaListener<LNMResult>() {
+                                @Override
+                                public void onResult(@NonNull LNMResult lnmResult) {
+                                    Log.i(Cart_frag.this.getClass().getSimpleName(), lnmResult.ResponseDescription);
+                                    sum_display.setText("0");
+                                    updatepaidfield();
 
-                //This is the
-                daraja.requestMPESAExpress(lnmExpress,
-                        new DarajaListener<LNMResult>() {
-                            @Override
-                            public void onResult(@NonNull LNMResult lnmResult) {
-                                Log.i(Cart_frag.this.getClass().getSimpleName(), lnmResult.ResponseDescription);
-                                updatepaidfield();
-                            }
 
-                            @Override
-                            public void onError(String error) {
-                                Log.i(Cart_frag.this.getClass().getSimpleName(), error);
+                                }
+
+                                @Override
+                                public void onError(String error) {
+                                    Log.i(Cart_frag.this.getClass().getSimpleName(), error);
+                                }
                             }
-                        }
-                );
-                sum_display.setText("0");
+                    );
+                    sum_display.setText("0");
+                } else {
+                    // No user is signed in
+                    Toast.makeText(getContext(), "USER NOT LOGGED IN", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent().setClass(getContext(), First_Page.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                   requireContext().startActivity(i);
+                }
+
             }
         });
+        //end of onclick
 
         getTotalPrice();
 
@@ -246,13 +275,7 @@ public class Cart_frag extends Fragment {
     }
 
     private void updatepaidfield() {
-//        Map<String , Object> quantity = new HashMap<>();
-//        quantity.put("Paid","Yes");
-//        firebaseFirestore.collection("Cart")
-//                .document("arsenal")
-//                .update(quantity);
         Query queryy = firebaseFirestore.collection("Cart")
-                .whereEqualTo("Purchaser", firebaseAuth.getCurrentUser().getUid())
                 .whereEqualTo("Paid","no");
         queryy.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -268,11 +291,7 @@ public class Cart_frag extends Fragment {
                             .document(document.getId())
                             .update(quantity);
                         recalculate();
-//                        listt.add(Integer.parseInt(paidd));
-//                        list.add(Integer.parseInt(Objects.requireNonNull(document.get("Price")).toString()));
                     }
-//                    recalculate();
-
                 }
             }
         });
@@ -281,7 +300,7 @@ public class Cart_frag extends Fragment {
 
     private void getTotalPrice() {
         query = firebaseFirestore.collection("Cart")
-                .whereEqualTo("Purchaser", firebaseAuth.getCurrentUser().getUid())
+//                .whereEqualTo("Purchaser", firebaseAuth.getCurrentUser().getUid())
                 .whereEqualTo("Paid","no");
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -316,6 +335,19 @@ public class Cart_frag extends Fragment {
         adapter.stopListening();
         super.onStop();
     }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+//                getActivity().finish();
+//                return true;
+                Intent i = new Intent().setClass(getContext(), Main_Menu.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                getContext().startActivity(i);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     public static int mySum(List<Integer> list) {
         int sum = 0;

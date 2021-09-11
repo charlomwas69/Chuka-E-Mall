@@ -132,7 +132,7 @@
             android:layout_marginEnd="16dp"
             android:background="@drawable/edit_text_design"
             android:ems="10"
-            android:hint="Location"
+            android:hint="Location i.e delivery point."
             android:padding="13dp"
             android:textColor="#F8131313"
             android:textColorHint="#F8131313"

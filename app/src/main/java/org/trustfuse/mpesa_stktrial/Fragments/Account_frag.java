@@ -11,6 +11,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
@@ -21,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -30,6 +34,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,8 +46,11 @@ import com.labters.lottiealertdialoglibrary.DialogTypes;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 import com.squareup.picasso.Picasso;
 
+import org.trustfuse.mpesa_stktrial.Authentication.First_Page;
+import org.trustfuse.mpesa_stktrial.Main_Menu;
 import org.trustfuse.mpesa_stktrial.Orders.Myorders;
 import org.trustfuse.mpesa_stktrial.R;
+import org.trustfuse.mpesa_stktrial.Single_good;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,6 +68,7 @@ public class Account_frag extends Fragment {
     FirebaseAuth firebaseAuth;
     String currentPhotoPath;
     Toolbar toolbar;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private static final int CAM_PERM = 100 ;
     private static final int CAM_REQ_CODE = 101;
     public static final int GALLERY_RE_CODE = 103;
@@ -80,79 +89,93 @@ public class Account_frag extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         toolbar = root.findViewById(R.id.toolbar0);
-        toolbar.setTitle("Account");
-        toolbar.setEnabled(true);
+        setHasOptionsMenu(true);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.setSupportActionBar(toolbar);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        activity.getSupportActionBar().setTitle("My Account");
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setTitle("My profile");
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        toolbar.setTitle("Account");
+//        toolbar.setEnabled(true);
 
-        LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(getContext(), DialogTypes.TYPE_LOADING)
-                .setTitle("LOADING DATA")
-                .setDescription("Account data loading...")
-                .build();
-        alertDialog.setCancelable(false);
-        alertDialog.show();
+        if (user != null) {
+            // User is signed in
+            LottieAlertDialog alertDialog= new LottieAlertDialog.Builder(getContext(), DialogTypes.TYPE_LOADING)
+                    .setTitle("LOADING DATA")
+                    .setDescription("Account data loading...")
+                    .build();
+            alertDialog.setCancelable(false);
+            alertDialog.show();
 
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), Myorders.class);
-                startActivity(intent);
-            }
-        });
+            update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), Myorders.class);
+                    startActivity(intent);
+                }
+            });
 
 
-        //Setting of image from Firebase storage
-        StorageReference set_Dp = storageReference.child("Consumer/" + firebaseAuth.getCurrentUser().getUid() + "profile_pic");
+            //Setting of image from Firebase storage
+            StorageReference set_Dp = storageReference.child("Consumer/" + firebaseAuth.getCurrentUser().getUid() + "profile_pic");
 //        proggg.setVisibility(View.VISIBLE);
-        set_Dp.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(image);
-                alertDialog.dismiss();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+            set_Dp.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).into(image);
+                    alertDialog.dismiss();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
 //                Toast.makeText(getContext(), "Pic Update failed" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                alertDialog.dismiss();
-            }
-        });
-        //end of Setting of image from Firebase storage
+                    alertDialog.dismiss();
+                }
+            });
+            //end of Setting of image from Firebase storage
 
-        DocumentReference documentReference = firebaseFirestore.collection("Consumer").document(firebaseAuth.getCurrentUser().getUid());
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
+            DocumentReference documentReference = firebaseFirestore.collection("Consumer").document(firebaseAuth.getCurrentUser().getUid());
+            documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                String u_name = documentSnapshot.getString("Consumer username");
-                String p_number = documentSnapshot.getString("Phone Number");
-                String namee = documentSnapshot.getString("Consumer name");
-                String email = documentSnapshot.getString("Consumer email");
-                String location = documentSnapshot.getString("Consumer location");
+                    String u_name = documentSnapshot.getString("Consumer username");
+                    String p_number = documentSnapshot.getString("Phone Number");
+                    String namee = documentSnapshot.getString("Consumer name");
+                    String email = documentSnapshot.getString("Consumer email");
+                    String location = documentSnapshot.getString("Consumer location");
 
-                name.setText(namee);
-                username.setText(u_name);
-                phone_number.setText(p_number);
-                emaill.setText(email);
-                locationn.setText(location);
+                    name.setText(namee);
+                    username.setText(u_name);
+                    phone_number.setText(p_number);
+                    emaill.setText(email);
+                    locationn.setText(location);
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "Failed to fetch data" + e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(), "Failed to fetch data" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
-        ///image view
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            ///image view
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(gallery, GALLERY_RE_CODE);
-            }
-        });
-
-//        update.setOnClickListener(v -> Toast.makeText(getActivity(), "WORKING", Toast.LENGTH_LONG).show());
+                    Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(gallery, GALLERY_RE_CODE);
+                }
+            });
+        } else {
+            // No user is signed in
+            Intent i = new Intent().setClass(getContext(), First_Page.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            requireContext().startActivity(i);
+        }
 
         return root;
     }
@@ -287,5 +310,32 @@ public class Account_frag extends Fragment {
         }
     }
     ///////////DP TINGS
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.logout_consumer,menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+//        MenuInflater menuInflater =
+        inflater.inflate(R.menu.logout_consumer,menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.sign_out){
+            firebaseAuth.signOut();
+            Intent i = new Intent().setClass(getContext(), Main_Menu.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            getContext().startActivity(i);
+        }
+        return true;
+    }
+
 }
 

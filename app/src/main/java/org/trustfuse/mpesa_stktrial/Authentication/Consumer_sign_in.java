@@ -1,5 +1,6 @@
 package org.trustfuse.mpesa_stktrial.Authentication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -16,7 +17,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -36,6 +41,7 @@ public class Consumer_sign_in extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     Toolbar toolbar;
+    String phone_number;
 //    String Userid;
 
     @Override
@@ -58,6 +64,27 @@ public class Consumer_sign_in extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar_cons_sign_in);
         toolbar.setTitle("Consumer Sign In");
         toolbar.setEnabled(true);
+
+        phone_number = firebaseAuth.getCurrentUser().getUid();
+        Toast.makeText(this, phone_number, Toast.LENGTH_SHORT).show();
+
+
+//        DocumentReference documentReferencee = firebaseFirestore.collection("Consumer").document(firebaseAuth.getCurrentUser().getUid());
+//        documentReferencee.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//
+//                phone_number = Objects.requireNonNull(documentSnapshot.getString("Phone Number")).substring(1);
+//                Toast.makeText(Consumer_sign_in.this, phone_number, Toast.LENGTH_SHORT).show();
+////                freeshippin.setText(p_number);
+//
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(getApplicationContext(), "Failed to fetch data" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
 
@@ -111,7 +138,8 @@ public class Consumer_sign_in extends AppCompatActivity {
             dataa.put("Consumer email",email_st);
             dataa.put("Consumer location",locat_st);
             dataa.put("Phone Number",phone);
-            firebaseFirestore.collection("Consumer").document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
+            dataa.put("User Id", firebaseAuth.getCurrentUser().getUid());
+            firebaseFirestore.collection("Consumer").document(firebaseAuth.getCurrentUser().getUid())
                     .set(dataa, SetOptions.merge());
 
             Intent intent = new Intent(getApplicationContext(), Main_Menu.class);
@@ -120,5 +148,11 @@ public class Consumer_sign_in extends AppCompatActivity {
             //end of add data
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), Main_Menu.class);
+        startActivity(intent);
     }
 }

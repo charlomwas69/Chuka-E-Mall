@@ -58,9 +58,9 @@ public class Myorders extends AppCompatActivity {
         toolbar.setEnabled(true);
 //        view.findViewById(R.id.progress_bar).setVisibility(View.GONE);
 
-        Query query = firebaseFirestore.collection("Cart")
+        Query query = firebaseFirestore.collection("Cart");
 //                .whereEqualTo("Purchaser", firebaseAuth.getCurrentUser().getUid());
-                .whereEqualTo("Purchaser",firebaseAuth.getCurrentUser().getUid());
+//                .whereEqualTo("Purchaser",firebaseAuth.getCurrentUser().getUid());
 
         FirestoreRecyclerOptions<Order_Adapter> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<Order_Adapter>()
                 .setQuery(query,Order_Adapter.class)

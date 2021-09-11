@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import org.trustfuse.mpesa_stktrial.Good_Owner.Good_owner_post;
 import org.trustfuse.mpesa_stktrial.MainActivity;
+import org.trustfuse.mpesa_stktrial.Main_Menu;
 import org.trustfuse.mpesa_stktrial.Mpesa_Test;
 import org.trustfuse.mpesa_stktrial.R;
 
@@ -30,8 +31,9 @@ public class First_Page extends AppCompatActivity {
         good_owner = findViewById(R.id.btn_goodowner);
         firebaseAuth= FirebaseAuth.getInstance();
         toolbar = findViewById(R.id.toolbar00);
-        toolbar.setTitle("Sign In");
-        toolbar.setEnabled(true);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Chuka E-Mall");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         consumer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,8 +45,8 @@ public class First_Page extends AppCompatActivity {
         good_owner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Good_owner_post.class);
-//                Intent intent = new Intent(getApplicationContext(),Good_owner_login.class);
+//                Intent intent = new Intent(getApplicationContext(), Good_owner_post.class);
+                Intent intent = new Intent(getApplicationContext(),Good_owner_login.class);
                 startActivity(intent);
 
 
@@ -52,4 +54,11 @@ public class First_Page extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), Main_Menu.class);
+        startActivity(intent);
+    }
+
 }

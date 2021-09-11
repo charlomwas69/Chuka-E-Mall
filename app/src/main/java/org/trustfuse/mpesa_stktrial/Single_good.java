@@ -7,6 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -31,10 +34,15 @@ import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 import com.squareup.picasso.Picasso;
 
 import org.trustfuse.mpesa_stktrial.Comments.Comments;
+import org.trustfuse.mpesa_stktrial.Fragments.Account_frag;
+import org.trustfuse.mpesa_stktrial.Fragments.Home_frag;
 import org.trustfuse.mpesa_stktrial.Goods.MyViewHolder;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 public class Single_good extends AppCompatActivity {
     ImageButton btn;
@@ -70,10 +78,13 @@ public class Single_good extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
         toolbar = findViewById(R.id.toolbar_single_good);
-        toolbar.setTitle("New Arrival");
-        toolbar.setEnabled(true);
+//        toolbar.setTitle("New Arrival");
+//        toolbar.setEnabled(true);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Chuka E-Mall");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        user.setText(firebaseAuth.getCurrentUser().getUid());
+//        user.setText(firebaseAuth.getCurrentUser().getUid());
 
 
         add_to_cart.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +100,7 @@ public class Single_good extends AppCompatActivity {
                     goods.put("Category",cart_category);
                     goods.put("Name",cart_name);
                     goods.put("Price",cart_price);
-                    goods.put("Purchaser",firebaseAuth.getCurrentUser().getUid());
+                    goods.put("Purchaser", "null");
                     goods.put("Image",the_uri);
                     goods.put("Qty",qty);
                     goods.put("Paid","no");
@@ -116,8 +127,9 @@ public class Single_good extends AppCompatActivity {
             }
         });
 
+//        Toast.makeText(Single_good.this, MyViewHolder.getValue(),LENGTH_LONG).show();
         firebaseFirestore.collection("Goods")
-                .whereEqualTo("Name", MyViewHolder.getValue())
+                .whereEqualTo("Name", Home_frag.getValue())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -154,7 +166,7 @@ public class Single_good extends AppCompatActivity {
 
                             }
                         } else {
-                            Toast.makeText(Single_good.this, "error" + task.getException(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(Single_good.this, "error" + task.getException(), LENGTH_LONG).show();
                         }
                     }
                 });
@@ -169,5 +181,20 @@ public class Single_good extends AppCompatActivity {
 
             }
         });
+    }
+//        @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.logout_consumer,menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
